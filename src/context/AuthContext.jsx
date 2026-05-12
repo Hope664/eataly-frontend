@@ -9,7 +9,6 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser]       = useState(null)   // logged in user object
   const [loading, setLoading] = useState(true)   // checking if user is logged in
 
-  // On app start, check if user is already logged in (token in localStorage)
   useEffect(() => {
     const checkUser = async () => {
       const token = localStorage.getItem('accessToken')
