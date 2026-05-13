@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { loginUser } from '../../services/api'
-import './Login.css'
+import './login.css'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -150,4 +150,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Login;

@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { registerUser } from '../../services/api'
-import '../Login/Login.css'
-import './Register.css'
+import '../login/login.css'
+import './register.css'
 
 const Register = () => {
   const navigate = useNavigate()

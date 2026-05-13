@@ -1,7 +1,7 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
-import Login from "./pages/login/login";
-import Register from "./pages/register/register";
+import Login from "./pages/login/login.jsx";
+import Register from "./pages/register/register.jsx";
 
 // ProtectedRoute — redirects to login if not authenticated
 const ProtectedRoute = ({ children }) => {
@@ -43,13 +43,14 @@ function AppRoutes() {
     </Routes>
   )
 }
-
 function App() {
-  return (
+  return ( 
+    <BrowserRouter>
     <AuthProvider>
       <AppRoutes />
     </AuthProvider>
+    </BrowserRouter>
   )
 }
 
-export default App
+export default App;
