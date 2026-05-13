@@ -32,6 +32,7 @@ function AppRoutes() {
   return (
     <Routes>
       {/* Public routes — only for guests */}
+      <Route path="/home" element={<Home />} />
       <Route path="/login"    element={<PublicRoute><Login /></PublicRoute>} />
       <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
 
@@ -41,6 +42,7 @@ function AppRoutes() {
       {/* Protected routes will be added here later */}
       {/* <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> */}
     </Routes>
+    
   )
 }
 function App() {
