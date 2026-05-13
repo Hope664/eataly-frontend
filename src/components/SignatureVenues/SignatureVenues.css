@@ -1,0 +1,41 @@
+.venues {
+  padding: 64px 80px;
+  background: #fff;
+}
+
+.venues__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 32px;
+}
+
+.venues__header h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1A1A1A;
+  margin-bottom: 4px;
+}
+
+.venues__header p {
+  font-size: 0.95rem;
+  color: #6B7280;
+}
+
+.venues__header a {
+  color: var(--primary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.venues__header a:hover {
+  text-decoration: underline;
+}
+
+.venues__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+} 
