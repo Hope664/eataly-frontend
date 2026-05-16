@@ -1,0 +1,153 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 80px;
+  height: 68px;
+  background: #fff;
+  border-bottom: 1px solid #F0F0F0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Logo */
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.navbar__logo-icon {
+  font-size: 1.4rem;
+}
+
+.navbar__logo-text {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #1A1A1A;
+  letter-spacing: -0.5px;
+}
+
+/* Nav links */
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar__link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6B7280;
+  cursor: pointer;
+  padding-bottom: 4px;
+  transition: color 0.2s ease;
+}
+
+.navbar__link:hover {
+  color: #1A1A1A;
+}
+
+/* Active link — green underline */
+.navbar__link--active {
+  color: #2A7A4B;
+  font-weight: 600;
+  border-bottom: 2px solid #2A7A4B;
+}
+
+/* Right side */
+.navbar__right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Search bar */
+.navbar__search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  border-radius: 24px;
+  padding: 8px 16px;
+  width: 260px;
+}
+
+.navbar__search-icon {
+  font-size: 0.85rem;
+  color: #9CA3AF;
+}
+
+.navbar__search input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.82rem;
+  color: #6B7280;
+  width: 100%;
+}
+
+.navbar__search input::placeholder {
+  color: #9CA3AF;
+}
+
+/* Icon buttons */
+.navbar__icon-btn {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.navbar__icon-btn:hover {
+  background: #F3F4F6;
+}
+
+/* User section */
+.navbar__user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.navbar__user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.navbar__user-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+.navbar__user-badge {
+  font-size: 0.72rem;
+  color: #2A7A4B;
+  font-weight: 500;
+}
+
+/* Avatar circle */
+.navbar__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #2A7A4B;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
