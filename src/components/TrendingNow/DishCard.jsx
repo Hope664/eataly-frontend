@@ -1,5 +1,5 @@
 // src/components/TrendingNow/DishCard.jsx
-
+import 'DishCard.css'
 const DishCard = ({ image, name, price, description }) => {
   return (
     <div className="dish-card">

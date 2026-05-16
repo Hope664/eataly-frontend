@@ -1,0 +1,56 @@
+.trending {
+  padding: 64px 80px;
+  background: #fff;
+}
+
+/* Header row — title left, arrows right */
+.trending__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 32px;
+}
+
+.trending__header h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1A1A1A;
+  margin-bottom: 4px;
+}
+
+.trending__header p {
+  font-size: 0.95rem;
+  color: #6B7280;
+}
+
+/* Arrow buttons */
+.trending__arrows {
+  display: flex;
+  gap: 8px;
+}
+
+.arrow-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #E5E7EB;
+  background: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1A1A1A;
+  transition: background 0.2s ease;
+}
+
+.arrow-btn:hover {
+  background: #F3F4F6;
+}
+
+/* 4 cards in a row */
+.trending__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
