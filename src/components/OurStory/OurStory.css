@@ -1,0 +1,82 @@
+.story {
+  position: relative;
+  background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400');
+  background-size: cover;
+  background-position: center;
+  padding: 80px;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  border-radius: 24px;
+  margin: 0 40px;
+  overflow: hidden;
+}
+
+/* Dark green overlay on top of background image */
+.story__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 56, 35, 0.88);
+  border-radius: 24px;
+}
+
+/* Content sits above overlay */
+.story__content {
+  position: relative;
+  z-index: 2;
+  max-width: 520px;
+  color: #fff;
+}
+
+/* OUR STORY label */
+.story__label {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+/* Heading */
+.story__title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 24px;
+  letter-spacing: -0.5px;
+}
+
+/* Description */
+.story__desc {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.8;
+  margin-bottom: 48px;
+}
+
+/* Stats row */
+.story__stats {
+  display: flex;
+  gap: 48px;
+}
+
+.story__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.story__stat-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.story__stat-label {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+}
