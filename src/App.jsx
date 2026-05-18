@@ -18,43 +18,42 @@ const ProtectedRoute = ({ children }) => {
     </div>
   )
 
-  // If not logged in, send to login page
   return user ? children : <Navigate to="/login" replace />
 }
 
-// PublicRoute — redirects to dashboard if already logged in
+// PublicRoute — redirects to home if already logged in
 const PublicRoute = ({ children }) => {
   const { user, loading } = useAuth()
   if (loading) return null
-  return user ? <Navigate to="/dashboard" replace /> : children
+  return user ? <Navigate to="/home" replace /> : children
 }
 
 function AppRoutes() {
   return (
     <Routes>
-      {/* Public routes — only for guests */}
-      <Route path="/home" element={<Home />} />
+      {/* Default redirect */}
       <Route path="/" element={<Navigate to="/home" replace />} />
+
+      {/* Landing page — public */}
+      <Route path="/home" element={<Home />} />
+
+      {/* Auth routes — only for guests */}
       <Route path="/login"    element={<PublicRoute><Login /></PublicRoute>} />
       <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
 
-      {/* Default redirect */}
-      <Route path="/" element={<Navigate to="/login" replace />} />
-
-      {/* Protected routes will be added here later */}
+      {/* Protected routes added here later */}
       {/* <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> */}
     </Routes>
-    
   )
 }
+
 function App() {
-  return ( 
+  return (
     <BrowserRouter>
-    <AuthProvider>
-      <AppRoutes />
-    </AuthProvider>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
     </BrowserRouter>
   )
 }
-
 export default App;
