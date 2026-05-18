@@ -1,0 +1,114 @@
+.hero {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  background-image: url('https://images.unsplash.com/photo-1473093226555-0b9e4f5b2e7e?w=1400');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+}
+
+/* Gradient overlay — dark on left, fades to transparent on right */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.82) 0%,
+    rgba(0, 0, 0, 0.55) 45%,
+    rgba(0, 0, 0, 0.15) 70%,
+    transparent 100%
+  );
+}
+
+/* Text content — sits above the overlay */
+.hero__content {
+  position: relative;
+  z-index: 2;
+  padding-left: 80px;
+  max-width: 560px;
+}
+
+/* ESTABLISHED 2007 label */
+.hero__label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+/* Main heading */
+.hero__title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  letter-spacing: -0.5px;
+}
+
+/* Subtitle */
+.hero__subtitle {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+/* Button row */
+.hero__buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Base button styles */
+.hero__btn {
+  padding: 12px 24px;
+  border-radius: 24px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+/* Filled green button — Register restaurant */
+.hero__btn--filled {
+  background: #2A7A4B;
+  color: #fff;
+  border-color: #2A7A4B;
+}
+
+.hero__btn--filled:hover {
+  background: #1E5C38;
+  border-color: #1E5C38;
+}
+
+/* Dark outlined button — Explore Restaurants */
+.hero__btn--dark {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.hero__btn--dark:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #fff;
+}
+
+/* Light outlined button — Book a Table */
+.hero__btn--outline {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+.hero__btn--outline:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
