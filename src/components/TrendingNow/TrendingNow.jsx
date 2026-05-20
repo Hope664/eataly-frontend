@@ -1,6 +1,21 @@
 import './TrendingNow.css'
 import DishCard from './DishCard'
 
+import useFetch from '../../hooks/useFetch'
+import { getRestaurants } from '../../services/api'
+
+const SignatureVenues = () => {
+  const { data, loading, error } = useFetch(getRestaurants)
+
+  if (loading) return <p>Loading...</p>
+  if (error)   return <p>Error: {error}</p>
+
+  return (
+    <div>
+      {data.map(venue => <VenueCard key={venue.id} {...venue} />)}
+    </div>
+  )
+}
 const dishes = [
   { id: 1, name: 'Ricci di Mare',       price: 32, description: 'Sea urchin, Sorrento lemon, artisanal linguine' },
   { id: 2, name: 'Tiramisù Classico',   price: 14, description: 'Mascarpone, Venetian espresso, premium cocoa' },
