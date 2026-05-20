@@ -1,4 +1,19 @@
 import './Footer.css'
+import useFetch from '../../hooks/useFetch'
+import { getRestaurants } from '../../services/api'
+
+const SignatureVenues = () => {
+  const { data, loading, error } = useFetch(getRestaurants)
+
+  if (loading) return <p>Loading...</p>
+  if (error)   return <p>Error: {error}</p>
+
+  return (
+    <div>
+      {data.map(venue => <VenueCard key={venue.id} {...venue} />)}
+    </div>
+  )
+}
 
 const Footer = () => {
   return (
