@@ -1,19 +1,19 @@
 import './OurStory.css'
-import useFetch from '../../hooks/useFetch'
-import { getRestaurants } from '../../services/api'
+// import useFetch from '../../hooks/useFetch'
+// import { getRestaurants } from '../../services/api'
 
-const SignatureVenues = () => {
-  const { data, loading, error } = useFetch(getRestaurants)
+// const SignatureVenues = () => {
+//   const { data, loading, error } = useFetch(getRestaurants)
 
-  if (loading) return <p>Loading...</p>
-  if (error)   return <p>Error: {error}</p>
+//   if (loading) return <p>Loading...</p>
+//   if (error)   return <p>Error: {error}</p>
 
-  return (
-    <div>
-      {data.map(venue => <VenueCard key={venue.id} {...venue} />)}
-    </div>
-  )
-}
+//   return (
+//     <div>
+//       {data.map(venue => <VenueCard key={venue.id} {...venue} />)}
+//     </div>
+//   )
+// }
 
 const stats = [
   { value: '15+', label: 'Years of Tradition' },
@@ -64,4 +64,4 @@ const OurStory = () => {
   )
 }
 
-export default OurStory
+export default OurStory;

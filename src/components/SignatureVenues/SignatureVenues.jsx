@@ -2,21 +2,21 @@
 
 import VenueCard from './VenueCard'
 import './SignatureVenues.css'
-import useFetch from '../../hooks/useFetch'
-import { getRestaurants } from '../../services/api'
+// import useFetch from '../../hooks/useFetch'
+// import { getRestaurants } from '../../services/api'
 
-const SignatureVenues = () => {
-  const { data, loading, error } = useFetch(getRestaurants)
+// const SignatureVenues = () => {
+//   const { data, loading, error } = useFetch(getRestaurants)
 
-  if (loading) return <p>Loading...</p>
-  if (error)   return <p>Error: {error}</p>
+//   if (loading) return <p>Loading...</p>
+//   if (error)   return <p>Error: {error}</p>
 
-  return (
-    <div>
-      {data.map(venue => <VenueCard key={venue.id} {...venue} />)}
-    </div>
-  )
-}
+//   return (
+//     <div>
+//       {data.map(venue => <VenueCard key={venue.id} {...venue} />)}
+//     </div>
+//   )
+// }
 
 // ✅ Data lives HERE — outside the component, at the top of the file
 const venues = [
@@ -25,7 +25,8 @@ const venues = [
   { id: 3, name: 'Pasta Fresca',  rating: 5.0, cuisine: 'Pasta House', time: '20-25 min', description: 'Live pasta making station showcasing generations-old techniques, fresh bronze-die cuts, and vibrant seasonal sauces.' },
 ]
 
-const SignatureVenues = () => {
+// const SignatureVenues = () =>
+function SignatureVenues() {
   return (
     <section className="venues">
 
@@ -49,4 +50,4 @@ const SignatureVenues = () => {
   )
 }
 
-export default SignatureVenues
+export default SignatureVenues;
