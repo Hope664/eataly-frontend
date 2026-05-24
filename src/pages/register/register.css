@@ -1,33 +1,7 @@
-/* Feature list on banner */
-.banner-features {
-  list-style: none;
-  margin-top: 2.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.banner-features li {
-  font-size: 0.95rem;
-  opacity: 0.9;
-}
-
-/* Two fields side by side */
-.form-row {
+/* Two inputs side by side for first + second name */
+.auth-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-/* Required asterisk */
-.required {
-  color: var(--error);
-  margin-left: 2px;
-}
-
-/* Responsive */
-@media (max-width: 480px) {
-  .form-row {
-    grid-template-columns: 1fr;
-  }
+  gap: 12px;
+  width: 100%;
 }
