@@ -1,13 +1,32 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider, useAuth } from "./context/AuthContext";
 import Home from "./pages/Home/Home";
+import Login from "./pages/login/login.jsx";
+import Register from "./pages/register/register.jsx";
+
+const PublicRoute = ({ children }) => {
+  const { user, loading } = useAuth()
+  if (loading) return null
+  return user ? <Navigate to="/home" replace /> : children
+}
+
+function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/"        element={<Navigate to="/home" replace />} />
+      <Route path="/home"    element={<Home />} />
+      <Route path="/login"   element={<PublicRoute><Login /></PublicRoute>} />
+      <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
+    </Routes>
+  )
+}
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Navigate to="/home" replace />} />
-        <Route path="/home" element={<Home />} />
-      </Routes>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
     </BrowserRouter>
   )
 }
