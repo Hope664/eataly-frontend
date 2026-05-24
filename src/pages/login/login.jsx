@@ -42,68 +42,70 @@ const Login = () => {
   }
 
   return (
-    <div className="auth-wrapper">
+    <div className="auth-page">
 
-      {/* Background */}
-      <div className="auth-bg" />
-
-      {/* Card */}
-      <div className="auth-card">
-
-        {/* Logo */}
-        <div className="auth-card__logo">
-          <span>🍽️</span>
+      {/* LEFT — splash panel */}
+      <div className="auth-splash">
+        <div className="auth-splash__overlay" />
+        <div className="auth-splash__content">
+          <div className="auth-splash__logo">🍽️</div>
+          <h1 className="auth-splash__title">
+            Ethical Dining<br />At Your<br />Fingertips
+          </h1>
+          <div className="auth-splash__buttons">
+            <Link to="/register" className="splash-btn splash-btn--white">Sign Up</Link>
+            <Link to="/login"    className="splash-btn splash-btn--outline">Login</Link>
+          </div>
         </div>
+      </div>
 
-        <h2 className="auth-card__title">Welcome back</h2>
-        <p className="auth-card__subtitle">Sign in your account</p>
+      {/* RIGHT — login card */}
+      <div className="auth-side">
+        <div className="auth-card">
 
-        {error && <div className="auth-card__error">⚠️ {error}</div>}
+          <div className="auth-card__logo">🍽️</div>
+          <h2 className="auth-card__title">Welcome back</h2>
+          <p className="auth-card__subtitle">Sign in your account</p>
 
-        <form onSubmit={handleSubmit} className="auth-card__form">
+          {error && <div className="auth-card__error">⚠️ {error}</div>}
 
-          <input
-            type="text"
-            name="email"
-            className="auth-input"
-            placeholder="Email / Phone number"
-            value={form.email}
-            onChange={handleChange}
-          />
-
-          <div className="auth-input-wrap">
+          <form onSubmit={handleSubmit} className="auth-form">
             <input
-              type={showPassword ? 'text' : 'password'}
-              name="password"
+              type="text"
+              name="email"
               className="auth-input"
-              placeholder="Password"
-              value={form.password}
+              placeholder="Email / Phone number"
+              value={form.email}
               onChange={handleChange}
             />
-            <span
-              className="auth-input-eye"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? '🙈' : '👁️'}
-            </span>
-          </div>
 
-          <button
-            type="submit"
-            className="auth-btn"
-            disabled={loading}
-          >
-            {loading ? 'Signing in...' : 'Login'}
-          </button>
+            <div className="auth-input-wrap">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                className="auth-input"
+                placeholder="Password"
+                value={form.password}
+                onChange={handleChange}
+              />
+              <span className="auth-eye" onClick={() => setShowPassword(!showPassword)}>
+                {showPassword ? '🙈' : '👁️'}
+              </span>
+            </div>
 
-        </form>
+            <button type="submit" className="auth-btn" disabled={loading}>
+              {loading ? 'Signing in...' : 'Login'}
+            </button>
+          </form>
 
-        <p className="auth-card__footer">
-          Don't have an account?{' '}
-          <Link to="/register" className="auth-card__link">Sign up</Link>
-        </p>
+          <p className="auth-card__footer">
+            Don't have an account?{' '}
+            <Link to="/register" className="auth-link">Sign up</Link>
+          </p>
 
+        </div>
       </div>
+
     </div>
   )
 }
