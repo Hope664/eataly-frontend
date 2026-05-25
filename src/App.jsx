@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from "./context/AuthContext";
 import Home from "./pages/Home/Home";
 import Login from "./pages/login/login.jsx";
 import Register from "./pages/register/register.jsx";
+import Explore from "./pages/Eplore/Explore";
 
 const PublicRoute = ({ children }) => {
   const { user, loading } = useAuth()
@@ -17,6 +18,7 @@ function AppRoutes() {
       <Route path="/home"    element={<Home />} />
       <Route path="/login"   element={<PublicRoute><Login /></PublicRoute>} />
       <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
+      <Route path="/explore"  element={<Explore/>} />
     </Routes>
   )
 }
