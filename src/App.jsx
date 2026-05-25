@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import Login from "./pages/login/login.jsx";
 import Register from "./pages/register/register.jsx";
 import Explore from "./pages/Explore/Explore";
+import Profile from ".pages/Profile/Profile";
 
 const PublicRoute = ({ children }) => {
   const { user, loading } = useAuth()
@@ -19,6 +20,7 @@ function AppRoutes() {
       <Route path="/login"   element={<PublicRoute><Login /></PublicRoute>} />
       <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
       <Route path="/explore"  element={<Explore/>} />
+      <Route path="/Profile" element={<Profile />}/>
     </Routes>
   )
 }
