@@ -3,7 +3,7 @@ import { AuthProvider, useAuth } from "./context/AuthContext";
 import Home from "./pages/Home/Home";
 import Login from "./pages/login/login.jsx";
 import Register from "./pages/register/register.jsx";
-import Explore from "./pages/Eplore/Explore";
+import Explore from "./pages/Explore/Explore";
 
 const PublicRoute = ({ children }) => {
   const { user, loading } = useAuth()
