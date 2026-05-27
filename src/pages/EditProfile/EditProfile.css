@@ -1,0 +1,216 @@
+/* Reuses profile-layout, profile-sidebar, sidebar__* from Profile.css */
+/* Make sure Profile.css is imported in your index.css or import it here */
+@import '../Profile/Profile.css';
+
+/* Breadcrumb */
+.edit-breadcrumb {
+  font-size: 0.82rem;
+  color: #9CA3AF;
+  margin-bottom: 16px;
+}
+
+.edit-breadcrumb a {
+  color: #2A7A4B;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.edit-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+/* Title */
+.edit-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1A1A1A;
+  margin-bottom: 4px;
+}
+
+.edit-subtitle {
+  font-size: 0.85rem;
+  color: #9CA3AF;
+  margin-bottom: 24px;
+}
+
+/* Success message */
+.edit-success {
+  background: #F0FDF4;
+  color: #2A7A4B;
+  border: 1px solid #BBF7D0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+/* Form */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Avatar section */
+.edit-avatar-section {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.edit-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #2A7A4B;
+  flex-shrink: 0;
+}
+
+.edit-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.edit-avatar-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1A1A1A;
+  margin-bottom: 2px;
+}
+
+.edit-avatar-email {
+  font-size: 0.82rem;
+  color: #6B7280;
+  margin-bottom: 12px;
+}
+
+.edit-avatar-btn {
+  background: #F0FDF4;
+  color: #2A7A4B;
+  border: 1.5px solid #BBF7D0;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.edit-avatar-btn:hover {
+  background: #DCFCE7;
+}
+
+/* Cards */
+.edit-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px 28px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.edit-card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1A1A1A;
+  margin-bottom: 0;
+}
+
+.edit-card__sub {
+  font-size: 0.82rem;
+  color: #9CA3AF;
+  margin-top: -10px;
+}
+
+/* Two inputs side by side */
+.edit-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* Input group */
+.edit-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.edit-group label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.edit-input {
+  padding: 12px 16px;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  color: #1A1A1A;
+  background: #F9FAFB;
+  outline: none;
+  transition: border 0.2s ease;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.edit-input:focus {
+  border-color: #2A7A4B;
+  background: #fff;
+}
+
+.edit-input::placeholder {
+  color: #B0B8C1;
+}
+
+/* Action buttons */
+.edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-bottom: 40px;
+}
+
+.edit-cancel-btn {
+  padding: 12px 28px;
+  border-radius: 10px;
+  border: 1.5px solid #E5E7EB;
+  background: #fff;
+  color: #6B7280;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.edit-cancel-btn:hover {
+  background: #F3F4F6;
+  color: #1A1A1A;
+}
+
+.edit-save-btn {
+  padding: 12px 28px;
+  border-radius: 10px;
+  border: none;
+  background: #2A7A4B;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.edit-save-btn:hover {
+  background: #1E5C38;
+}
