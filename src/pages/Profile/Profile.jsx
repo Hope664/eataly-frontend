@@ -80,7 +80,7 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <link to="edit-profile" className="profile-edit-btn">Edit profile</link>
+          <Link to="edit-profile" className="profile-edit-btn">Edit profile</Link>
         </div>
 
         {/* Saved Restaurants */}
