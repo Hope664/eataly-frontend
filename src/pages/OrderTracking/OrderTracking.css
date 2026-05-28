@@ -1,0 +1,435 @@
+.ot-page {
+  min-height: 100vh;
+  background: #F9FAFB;
+  font-family: 'Inter', sans-serif;
+  padding-bottom: 80px;
+}
+
+/* Navbar */
+.ot-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 60px;
+  background: #fff;
+  border-bottom: 1px solid #F0F0F0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.ot-nav__logo {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #1A1A1A;
+}
+
+.ot-nav__right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ot-nav__icon {
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.ot-nav__avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #2A7A4B;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Container */
+.ot-container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 28px 24px;
+}
+
+/* Breadcrumb */
+.ot-breadcrumb {
+  font-size: 0.82rem;
+  color: #9CA3AF;
+  margin-bottom: 16px;
+}
+
+.ot-breadcrumb a {
+  color: #2A7A4B;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Hero */
+.ot-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #1A1A1A;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.ot-subtitle {
+  font-size: 0.88rem;
+  color: #6B7280;
+  margin-bottom: 20px;
+}
+
+/* Time badge */
+.ot-time-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #2A7A4B;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Map card */
+.ot-map-card {
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  position: relative;
+  background: #1a2e1e;
+}
+
+.ot-map-bg {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.ot-map-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+  filter: hue-rotate(80deg) saturate(0.6);
+}
+
+.ot-map-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 50, 25, 0.6);
+}
+
+/* Courier info */
+.ot-courier {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+}
+
+.ot-courier__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #2A7A4B;
+  flex-shrink: 0;
+}
+
+.ot-courier__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ot-courier__name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.ot-courier__role {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.ot-courier__actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.ot-courier-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.ot-courier-btn--green {
+  background: #2A7A4B;
+  color: #fff;
+}
+
+.ot-courier-btn--gray {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
+
+/* Sections */
+.ot-section {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.ot-section__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1A1A1A;
+  margin-bottom: 20px;
+}
+
+/* Progress steps */
+.ot-steps {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+}
+
+.ot-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+  gap: 6px;
+}
+
+.ot-step__line {
+  position: absolute;
+  top: 14px;
+  right: 50%;
+  width: 100%;
+  height: 2px;
+  background: #E5E7EB;
+  z-index: 0;
+}
+
+.ot-step__line--done {
+  background: #2A7A4B;
+}
+
+.ot-step__circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #E5E7EB;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: #fff;
+  z-index: 1;
+  position: relative;
+}
+
+.ot-step__circle--done {
+  background: #2A7A4B;
+  border-color: #2A7A4B;
+}
+
+.ot-step__label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #374151;
+  text-align: center;
+}
+
+.ot-step__time {
+  font-size: 0.68rem;
+  color: #9CA3AF;
+  text-align: center;
+}
+
+/* Order items */
+.ot-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.ot-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ot-item__image {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.ot-item__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ot-item__name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin-bottom: 2px;
+}
+
+.ot-item__desc {
+  font-size: 0.75rem;
+  color: #9CA3AF;
+}
+
+.ot-item__price {
+  margin-left: auto;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1A1A1A;
+}
+
+/* Totals */
+.ot-totals {
+  border-top: 1px solid #F3F4F6;
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ot-totals__row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #6B7280;
+}
+
+.ot-totals__row--total {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1A1A1A;
+  border-top: 1px solid #F3F4F6;
+  padding-top: 10px;
+  margin-top: 4px;
+}
+
+/* Address */
+.ot-address {
+  display: flex;
+  gap: 14px;
+  font-size: 1.2rem;
+}
+
+.ot-address__title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1A1A1A;
+  margin-bottom: 6px;
+}
+
+.ot-address__text {
+  font-size: 0.82rem;
+  color: #6B7280;
+  margin-bottom: 2px;
+}
+
+.ot-address__note {
+  font-size: 0.78rem;
+  color: #9CA3AF;
+  font-style: italic;
+  margin-top: 8px;
+}
+
+/* Help */
+.ot-help {
+  text-align: center;
+}
+
+.ot-help__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1A1A1A;
+  margin-bottom: 6px;
+}
+
+.ot-help__sub {
+  font-size: 0.82rem;
+  color: #6B7280;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.ot-help__btn {
+  background: #F0FDF4;
+  color: #2A7A4B;
+  border: 1.5px solid #BBF7D0;
+  border-radius: 10px;
+  padding: 10px 28px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ot-help__btn:hover {
+  background: #DCFCE7;
+}
+
+/* Bottom tab bar */
+.ot-tabbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: #fff;
+  border-top: 1px solid #F0F0F0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 100;
+}
+
+.ot-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.68rem;
+  color: #9CA3AF;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.ot-tab--active {
+  color: #2A7A4B;
+}
