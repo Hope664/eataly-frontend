@@ -6,6 +6,8 @@ import Register from "./pages/register/register.jsx";
 import Explore from "./pages/Explore/Explore";
 import Profile from "./pages/Profile/Profile";
 import EditProfile from "./pages/EditProfile/EditProfile";
+import OrderTracking from "./pages/OrderTracking/OrderTracking";
+
 
 const PublicRoute = ({ children }) => {
   const { user, loading } = useAuth()
@@ -23,6 +25,7 @@ function AppRoutes() {
       <Route path="/explore"  element={<Explore/>} />
       <Route path="/Profile" element={<Profile />}/>
       <Route path="/edit-profile" element={<EditProfile/>} />
+      <Route path="/order/:id" element={<OrderTracking />} />
     </Routes>
   )
 }
