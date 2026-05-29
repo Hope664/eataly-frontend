@@ -7,6 +7,7 @@ import Explore from "./pages/Explore/Explore";
 import Profile from "./pages/Profile/Profile";
 import EditProfile from "./pages/EditProfile/EditProfile";
 import OrderTracking from "./pages/OrderTracking/OrderTracking";
+import Checkout from "./pages/Checkout/Checkout";
 
 
 const PublicRoute = ({ children }) => {
@@ -26,6 +27,7 @@ function AppRoutes() {
       <Route path="/Profile" element={<Profile />}/>
       <Route path="/edit-profile" element={<EditProfile/>} />
       <Route path="/order/:id" element={<OrderTracking />} />
+      <Route path="/checkout" element={<Checkout />} />
     </Routes>
   )
 }
