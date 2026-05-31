@@ -1,0 +1,263 @@
+.onboard-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  position: relative;
+  overflow: hidden;
+  padding: 40px 24px;
+}
+
+/* Background */
+.onboard-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1400');
+  background-size: cover;
+  background-position: center;
+  filter: blur(3px) brightness(0.55);
+  transform: scale(1.05);
+  z-index: 0;
+}
+
+/* Green tint */
+.onboard-page::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 80, 40, 0.45);
+  z-index: 1;
+}
+
+/* Cards */
+.onboard-card {
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: 36px 32px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.onboard-card--left {
+  max-width: 380px;
+}
+
+.onboard-card--right {
+  max-width: 340px;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+/* Logo */
+.onboard-logo {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #2A7A4B;
+  margin-bottom: 16px;
+  font-family: Georgia, serif;
+}
+
+/* Title */
+.onboard-card__title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1A1A1A;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Success / Error */
+.onboard-success {
+  background: #F0FDF4;
+  color: #2A7A4B;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.onboard-error {
+  background: #FEF2F2;
+  color: #DC2626;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  margin-bottom: 12px;
+}
+
+/* Form */
+.onboard-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Group */
+.onboard-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.onboard-group label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* Input */
+.onboard-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  color: #1A1A1A;
+  background: #F9FAFB;
+  outline: none;
+  transition: border 0.2s ease;
+  box-sizing: border-box;
+}
+
+.onboard-input:focus {
+  border-color: #2A7A4B;
+  background: #fff;
+}
+
+.onboard-input::placeholder {
+  color: #B0B8C1;
+}
+
+/* Select */
+.onboard-select-wrap {
+  position: relative;
+}
+
+.onboard-select {
+  appearance: none;
+  cursor: pointer;
+}
+
+/* Image row */
+.onboard-image-row {
+  display: flex;
+  gap: 10px;
+}
+
+.onboard-upload-btn {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1.5px dashed #D1D5DB;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  color: #6B7280;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.onboard-upload-btn:hover {
+  border-color: #2A7A4B;
+  color: #2A7A4B;
+}
+
+.onboard-save-btn {
+  padding: 10px 18px;
+  background: #2A7A4B;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+}
+
+.onboard-save-btn:hover {
+  background: #1E5C38;
+}
+
+/* Image preview */
+.onboard-image-preview {
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-top: 8px;
+}
+
+/* Two column row */
+.onboard-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Logo upload box */
+.onboard-logo-upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  border: 1.5px dashed #D1D5DB;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  color: #2A7A4B;
+  font-weight: 600;
+  background: #F0FDF4;
+  transition: all 0.2s ease;
+}
+
+.onboard-logo-upload:hover {
+  border-color: #2A7A4B;
+}
+
+.onboard-logo-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+/* Save Info button */
+.onboard-save-info-btn {
+  width: 100%;
+  padding: 14px;
+  background: #2A7A4B;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s ease;
+}
+
+.onboard-save-info-btn:hover {
+  background: #1E5C38;
+}
+
+.onboard-save-info-btn--disabled {
+  background: #D1D5DB;
+  cursor: not-allowed;
+}
+
+.onboard-save-info-btn--disabled:hover {
+  background: #D1D5DB;
+}
+
+/* Hint */
+.onboard-hint {
+  font-size: 0.75rem;
+  color: #9CA3AF;
+  text-align: center;
+  margin-top: -6px;
+}
