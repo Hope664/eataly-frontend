@@ -10,6 +10,8 @@ import OrderTracking from "./pages/OrderTracking/OrderTracking";
 import Checkout from "./pages/Checkout/Checkout";
 import Reservation from "./pages/Reservation/Reservation";
 import Onboarding from "./pages/restaurant/Onboarding/Onboarding";
+import Dashboard from "./pages/restaurant/Dashboard/Dashboard";
+
 
 
 const PublicRoute = ({ children }) => {
@@ -32,6 +34,7 @@ function AppRoutes() {
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/reservation" element={<Reservation />} />
       <Route path="/onboarding" element={<Onboarding />} />
+      <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
   )
 }
