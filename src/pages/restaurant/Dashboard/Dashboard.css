@@ -495,3 +495,50 @@
 .dash-roster-btn:hover {
   background: #374151;
 }
+/* Pure CSS Charts */
+.css-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 80px;
+  width: 100%;
+  padding: 4px 0;
+}
+
+.css-chart--revenue {
+  height: 200px;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.css-chart__bar-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  height: 100%;
+}
+
+.css-chart__bar {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 4px 4px 0 0;
+  transition: height 0.4s ease;
+  min-height: 4px;
+}
+
+.css-chart__bar--green {
+  background: #2A7A4B;
+}
+
+.css-chart__bar--green:hover {
+  background: #1E5C38;
+}
+
+.css-chart__label {
+  font-size: 0.65rem;
+  color: #9CA3AF;
+  white-space: nowrap;
+}
