@@ -17,10 +17,10 @@ import DishCard from './DishCard'
 //   )
 // }
 const dishes = [
-  { id: 1, name: 'Ricci di Mare',       price: 32, description: 'Sea urchin, Sorrento lemon, artisanal linguine' },
-  { id: 2, name: 'Tiramisù Classico',   price: 14, description: 'Mascarpone, Venetian espresso, premium cocoa' },
-  { id: 3, name: 'Bresaola Valtellina', price: 22, description: 'Air-cured beef with arugula, 24-month Parmigiano' },
-  { id: 4, name: 'Risotto ai Funghi',   price: 28, description: 'Wild porcini, white truffle oil, superfine Arborio' },
+  { id: 1, image: 'https://images.unsplash.com/photo-1572441713132-c542fc4fe282?w=400', name: 'Ricci di Mare', price: 32, description: 'Sea urchin, Sorrento lemon, artisanal linguine' },
+  { id: 2, image: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400', name: 'Tiramisù Classico', price: 14, description: 'Mascarpone, Venetian espresso, premium cocoa' },
+  { id: 3, image: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400', name: 'Bresaola Valtellina', price: 22, description: 'Air-cured beef with arugula, 24-month Parmigiano' },
+  { id: 4, image: 'https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=400', name: 'Risotto ai Funghi', price: 28, description: 'Wild porcini, white truffle oil, superfine Arborio' },
 ]
 
 const TrendingNow = () => {

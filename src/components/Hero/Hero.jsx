@@ -1,19 +1,16 @@
+import { Link } from 'react-router-dom'
 import './Hero.css'
 
 const Hero = () => {
   return (
     <section className="hero">
-
-      {/* Dark gradient overlay so left side text is readable */}
       <div className="hero__overlay" />
-
-      {/* Left content */}
       <div className="hero__content">
         <span className="hero__label">ESTABLISHED 2007</span>
 
         <h1 className="hero__title">
           Ethical Dining<br />
-          At you fingertips
+          At Your Fingertips
         </h1>
 
         <p className="hero__subtitle">
@@ -22,22 +19,20 @@ const Hero = () => {
           reimagined for the modern palate.
         </p>
 
-        {/* 3 buttons */}
         <div className="hero__buttons">
-          <button className="hero__btn hero__btn--filled">
+          <Link to="/onboarding" className="hero__btn hero__btn--filled">
             Register restaurant
-          </button>
-          <button className="hero__btn hero__btn--dark">
+          </Link>
+          <Link to="/explore" className="hero__btn hero__btn--dark">
             Explore Restaurants
-          </button>
-          <button className="hero__btn hero__btn--outline">
+          </Link>
+          <Link to="/reservation" className="hero__btn hero__btn--outline">
             Book a Table
-          </button>
+          </Link>
         </div>
       </div>
-
     </section>
   )
 }
 
-export default Hero;
+export default Hero

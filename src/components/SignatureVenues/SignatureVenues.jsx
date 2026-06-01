@@ -20,9 +20,9 @@ import './SignatureVenues.css'
 
 // ✅ Data lives HERE — outside the component, at the top of the file
 const venues = [
-  { id: 1, name: 'La Piazza',     rating: 4.9, cuisine: 'Pizzeria',    time: '15-20 min', description: 'Traditional Neapolitan pizzas and seasonal antipasti in an airy courtyard setting inspired by Rome\'s historic squares.' },
-  { id: 2, name: 'Il Vino',       rating: 4.8, cuisine: 'Wine Bar',    time: '10-15 min', description: 'A sophisticated enoteca featuring over 500 regional Italian wines and artisanal pairing boards curated by our sommeliers.' },
-  { id: 3, name: 'Pasta Fresca',  rating: 5.0, cuisine: 'Pasta House', time: '20-25 min', description: 'Live pasta making station showcasing generations-old techniques, fresh bronze-die cuts, and vibrant seasonal sauces.' },
+  { id: 1, image: 'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=600', name: 'La Piazza', rating: 4.9, cuisine: 'Pizzeria', time: '15-20 min', description: 'Traditional Neapolitan pizzas and seasonal antipasti in an airy courtyard setting inspired by Rome\'s historic squares.' },
+  { id: 2, image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600', name: 'Il Vino', rating: 4.8, cuisine: 'Wine Bar', time: '10-15 min', description: 'A sophisticated enoteca featuring over 500 regional Italian wines and artisanal pairing boards curated by our sommeliers.' },
+  { id: 3, image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600', name: 'Pasta Fresca', rating: 5.0, cuisine: 'Pasta House', time: '20-25 min', description: 'Live pasta making station showcasing generations-old techniques, fresh bronze-die cuts, and vibrant seasonal sauces.' },
 ]
 
 // const SignatureVenues = () =>
