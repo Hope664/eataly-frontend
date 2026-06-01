@@ -1,23 +1,20 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import { getMe } from '../services/api'
+// import { getMe } from '../services/api'  // ← commented out until backend is ready
 
-// Step 1: Create the context (a global box that holds data)
 const AuthContext = createContext()
 
-// Step 2: Create the Provider (wraps the app and gives data to all children)
 export const AuthProvider = ({ children }) => {
-  const [user, setUser]       = useState(null)   // logged in user object
-  const [loading, setLoading] = useState(true)   // checking if user is logged in
+  const [user, setUser]       = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const checkUser = async () => {
       const token = localStorage.getItem('accessToken')
       if (token) {
         try {
-          const res = await getMe()
-          setUser(res.data.user)
+          // const res = await getMe()   // ← commented out until backend is ready
+          // setUser(res.data.user)      // ← commented out until backend is ready
         } catch {
-          // Token expired or invalid — clear it
           localStorage.removeItem('accessToken')
           localStorage.removeItem('refreshToken')
         }
@@ -27,14 +24,12 @@ export const AuthProvider = ({ children }) => {
     checkUser()
   }, [])
 
-  // Called after successful login
   const login = (userData, accessToken, refreshToken) => {
     localStorage.setItem('accessToken', accessToken)
     localStorage.setItem('refreshToken', refreshToken)
     setUser(userData)
   }
 
-  // Called on logout
   const logout = () => {
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
@@ -48,5 +43,4 @@ export const AuthProvider = ({ children }) => {
   )
 }
 
-// Step 3: Custom hook so any component can use auth data easily
 export const useAuth = () => useContext(AuthContext)
