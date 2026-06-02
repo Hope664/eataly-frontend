@@ -11,6 +11,7 @@ import Checkout from "./pages/Checkout/Checkout";
 import Reservation from "./pages/Reservation/Reservation";
 import Onboarding from "./pages/restaurant/Onboarding/Onboarding";
 import Dashboard from "./pages/restaurant/Dashboard/Dashboard";
+import Menu from "./pages/restaurant/Menu/Menu";
 
 
 
@@ -35,6 +36,7 @@ function AppRoutes() {
       <Route path="/reservation" element={<Reservation />} />
       <Route path="/onboarding" element={<Onboarding />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/menu" element={<Menu />} />
     </Routes>
   )
 }
