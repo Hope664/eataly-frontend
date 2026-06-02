@@ -12,7 +12,7 @@ import Reservation from "./pages/Reservation/Reservation";
 import Onboarding from "./pages/restaurant/Onboarding/Onboarding";
 import Dashboard from "./pages/restaurant/Dashboard/Dashboard";
 import Menu from "./pages/restaurant/Menu/Menu";
-
+import AddDish from "./pages/restaurant/AddDish/AddDish";
 
 
 const PublicRoute = ({ children }) => {
@@ -31,13 +31,13 @@ function AppRoutes() {
       <Route path="/explore"  element={<Explore/>} />
       <Route path="/Profile" element={<Profile />}/>
       <Route path="/edit-profile" element={<EditProfile/>} />
-      <Route path="/order/:id" element={<OrderTracking />} />
+      <Route path="/orders" element={<OrderTracking />} />
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/reservation" element={<Reservation />} />
       <Route path="/onboarding" element={<Onboarding />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/menu" element={<Menu />} />
-    </Routes>
+      <Route path="/add-dish" element={<AddDish />} />    </Routes>
   )
 }
 
