@@ -33,7 +33,7 @@ function AppRoutes() {
       <Route path="/edit-profile" element={<EditProfile/>} />
       <Route path="/orders" element={<OrderTracking />} />
       <Route path="/checkout" element={<Checkout />} />
-      <Route path="/reservation" element={<Reservation />} />
+      <Route path="/reservations" element={<Reservation />} />
       <Route path="/onboarding" element={<Onboarding />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/menu" element={<Menu />} />
