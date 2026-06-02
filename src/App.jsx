@@ -16,6 +16,7 @@ import AddDish from "./pages/restaurant/AddDish/AddDish";
 import Settings from "./pages/restaurant/Settings/Settings";
 import Notifications from "./pages/restaurant/Notifications/Notifications";
 import RestaurantOrders from "./pages/restaurant/Orders/Orders";
+import Reservation from "./pages/restaurant/Reservation/Reservations";
 
 
 const PublicRoute = ({ children }) => {
@@ -43,7 +44,8 @@ function AppRoutes() {
       <Route path="/add-dish" element={<AddDish />} /> 
       <Route path="/settings" element={<Settings />} />  
       <Route path="/notifications" element={<Notifications />} /> 
-      <Route path="/restaurant-orders" element={<RestaurantOrders />} />     
+      <Route path="/restaurant-orders" element={<RestaurantOrders />} />
+      <Route path="/reservations" element={<Reservations />} />    
       </Routes>
   )
 }
