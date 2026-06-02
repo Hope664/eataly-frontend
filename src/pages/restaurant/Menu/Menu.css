@@ -1,0 +1,407 @@
+/* Reuses dash-layout, dash-sidebar, dash-nav from Dashboard.css */
+
+/* Header */
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.menu-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #2A7A4B;
+  margin-bottom: 4px;
+}
+
+.menu-subtitle {
+  font-size: 0.85rem;
+  color: #6B7280;
+}
+
+.menu-add-btn {
+  background: #2A7A4B;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.menu-add-btn:hover {
+  background: #1E5C38;
+}
+
+/* Category tabs */
+.menu-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.menu-tab {
+  padding: 8px 20px;
+  border-radius: 20px;
+  border: 1.5px solid #E5E7EB;
+  background: #fff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #6B7280;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.menu-tab:hover {
+  border-color: #2A7A4B;
+  color: #2A7A4B;
+}
+
+.menu-tab--active {
+  background: #2A7A4B;
+  color: #fff;
+  border-color: #2A7A4B;
+}
+
+/* Section */
+.menu-section {
+  margin-bottom: 32px;
+}
+
+.menu-section__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.menu-section__header h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1A1A1A;
+}
+
+.menu-top-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #9CA3AF;
+  text-transform: uppercase;
+}
+
+.menu-section__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.menu-filter-btn {
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1.5px solid #E5E7EB;
+  background: #fff;
+  font-size: 0.82rem;
+  color: #374151;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.menu-filter-btn:hover {
+  border-color: #2A7A4B;
+  color: #2A7A4B;
+}
+
+/* Featured grid */
+.menu-featured-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.featured-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.featured-card__image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.featured-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Badges */
+.menu-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.badge--green {
+  background: #2A7A4B;
+  color: #fff;
+}
+
+.badge--dark {
+  background: #1A1A1A;
+  color: #fff;
+}
+
+.featured-card__body {
+  padding: 16px 20px;
+}
+
+.featured-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.featured-card__top h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1A1A1A;
+  margin-bottom: 4px;
+}
+
+.featured-card__top p {
+  font-size: 0.78rem;
+  color: #6B7280;
+  line-height: 1.5;
+}
+
+.featured-card__price {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #1A1A1A;
+  white-space: nowrap;
+}
+
+.featured-card__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Toggle switch */
+.menu-toggle {
+  width: 44px;
+  height: 24px;
+  border-radius: 12px;
+  background: #E5E7EB;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.2s ease;
+}
+
+.menu-toggle--on {
+  background: #2A7A4B;
+}
+
+.menu-toggle__dot {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  transition: left 0.2s ease;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.menu-toggle--on .menu-toggle__dot {
+  left: 23px;
+}
+
+/* Icon buttons */
+.menu-icons {
+  display: flex;
+  gap: 6px;
+}
+
+.menu-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1.5px solid #E5E7EB;
+  background: #fff;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.menu-icon-btn:hover {
+  border-color: #2A7A4B;
+}
+
+.menu-icon-btn--red:hover {
+  border-color: #EF4444;
+}
+
+/* Dish cards grid */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.dish-card {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease;
+}
+
+.dish-card:hover {
+  transform: translateY(-3px);
+}
+
+.dish-card__image {
+  position: relative;
+  height: 140px;
+  overflow: hidden;
+}
+
+.dish-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dish-card__price-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #2A7A4B;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+
+.dish-card__sold-out {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background: #EF4444;
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.dish-card__body {
+  padding: 12px 14px;
+}
+
+.dish-card__body h4 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1A1A1A;
+  margin-bottom: 4px;
+}
+
+.dish-card__body p {
+  font-size: 0.75rem;
+  color: #9CA3AF;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.dish-card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dish-card__status {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.dish-card__status--available {
+  background: #F0FDF4;
+  color: #2A7A4B;
+}
+
+.dish-card__status--soldout {
+  background: #FEF2F2;
+  color: #EF4444;
+}
+
+/* Upload card */
+.dish-card--upload {
+  border: 2px dashed #D1D5DB;
+  background: #F9FAFB;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  gap: 6px;
+  cursor: pointer;
+  min-height: 220px;
+  transition: border-color 0.2s ease;
+}
+
+.dish-card--upload:hover {
+  border-color: #2A7A4B;
+}
+
+.dish-card__upload-icon {
+  font-size: 1.8rem;
+  margin-bottom: 4px;
+}
+
+.dish-card__upload-text {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #374151;
+  text-align: center;
+}
+
+.dish-card__upload-sub {
+  font-size: 0.75rem;
+  color: #9CA3AF;
+  text-align: center;
+}
+
+.dish-card__library-btn {
+  margin-top: 8px;
+  padding: 8px 16px;
+  background: #fff;
+  border: 1.5px solid #2A7A4B;
+  border-radius: 8px;
+  color: #2A7A4B;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.dish-card__library-btn:hover {
+  background: #F0FDF4;
+}
