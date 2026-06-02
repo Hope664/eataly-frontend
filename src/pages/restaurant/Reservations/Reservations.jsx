@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import '../../../pages/restaurant/Dashboard/Dashboard.css'
 import './Reservations.css'
 
 const reservations = [

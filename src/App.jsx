@@ -16,7 +16,7 @@ import AddDish from "./pages/restaurant/AddDish/AddDish";
 import Settings from "./pages/restaurant/Settings/Settings";
 import Notifications from "./pages/restaurant/Notifications/Notifications";
 import RestaurantOrders from "./pages/restaurant/Orders/Orders";
-import Reservation from "./pages/restaurant/Reservation/Reservations";
+import Reservations from "./pages/restaurant/Reservations/Reservations";
 
 
 const PublicRoute = ({ children }) => {
@@ -37,7 +37,7 @@ function AppRoutes() {
       <Route path="/edit-profile" element={<EditProfile/>} />
       <Route path="/orders" element={<OrderTracking />} />
       <Route path="/checkout" element={<Checkout />} />
-      <Route path="/reservations" element={<Reservation />} />
+      <Route path="/reservation" element={<Reservation />} />
       <Route path="/onboarding" element={<Onboarding />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/menu" element={<Menu />} />

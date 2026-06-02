@@ -1,4 +1,13 @@
 .res-mgmt-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 100vh;
+  background: #F9FAFB;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+}
+
+.res-mgmt-layout {
   position: relative;
 }
 
