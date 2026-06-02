@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate  } from 'react-router-dom'
 import './Menu.css'
 
 const categories = ['All Items', 'Appetizers', 'Mains', 'Desserts', 'Wines']
@@ -35,6 +34,7 @@ const appetizers = [
 ]
 
 const Menu = () => {
+  const navigate = useNavigate()
   const [activeCategory, setActiveCategory] = useState('All Items')
   const [toggleOn, setToggleOn]             = useState(true)
 
@@ -92,7 +92,7 @@ const Menu = () => {
               <h1 className="menu-title">Menu Management</h1>
               <p className="menu-subtitle">Curate your culinary offerings and seasonal specials.</p>
             </div>
-            <button className="menu-add-btn">+ Add New Dish</button>
+            <button className="menu-add-btn" onClick={() => Navigate('/add-dish')}>+ Add New Dish</button>
           </div>
 
           {/* Category tabs */}
