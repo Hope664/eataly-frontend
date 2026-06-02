@@ -13,6 +13,7 @@ import Onboarding from "./pages/restaurant/Onboarding/Onboarding";
 import Dashboard from "./pages/restaurant/Dashboard/Dashboard";
 import Menu from "./pages/restaurant/Menu/Menu";
 import AddDish from "./pages/restaurant/AddDish/AddDish";
+import Settings from "./pages/restaurant/Settings/Settings";
 
 
 const PublicRoute = ({ children }) => {
@@ -37,7 +38,9 @@ function AppRoutes() {
       <Route path="/onboarding" element={<Onboarding />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/menu" element={<Menu />} />
-      <Route path="/add-dish" element={<AddDish />} />    </Routes>
+      <Route path="/add-dish" element={<AddDish />} /> 
+      <Route path="/settings" element={<Settings />} />  
+      </Routes>
   )
 }
 
