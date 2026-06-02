@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
 import './Hero.css'
+import heroBg from '../../assets/bg.jpg'
 
 const Hero = () => {
   return (
-    <section className="hero">
+  <section className="hero" >
       <div className="hero__overlay" />
       <div className="hero__content">
         <span className="hero__label">ESTABLISHED 2007</span>
