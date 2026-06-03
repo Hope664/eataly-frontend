@@ -361,3 +361,10 @@
 .ro-stat__value--white {
   color: #fff;
 }
+.ro-table-row {
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.ro-table-row:hover {
+  background: #F9FAFB;
+}

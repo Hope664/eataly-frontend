@@ -1,6 +1,8 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './Orders.css'
+
+const navigate = useNavigate()
 
 const orders = [
   { id: 1, invoice: 'INV-5012', customer: 'Olivia Rhye',    avatar: 'OR', order: 'Berry Smoothie x2',  table: 'A1', tableColor: 'green',  payment: 'Card',         status: 'Paid'      },
