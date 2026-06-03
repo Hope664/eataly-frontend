@@ -20,6 +20,7 @@ import Reservations from "./pages/restaurant/Reservations/Reservations";
 import Analytics from "./pages/restaurant/Analytics/Analytics";
 import Support from "./pages/restaurant/Support/Support";
 import Staff from "./pages/restaurant/Staff/Staff";
+import OrderDetail from "./pages/restaurant/OrderDetail/OrderDetail";
 
 
 const PublicRoute = ({ children }) => {
@@ -50,7 +51,9 @@ function AppRoutes() {
       <Route path="/restaurant-orders" element={<RestaurantOrders />} />
       <Route path="/reservations" element={<Reservations />} /> 
       <Route path="/analytics" element={<Analytics />} />
-      <Route path="/staff" element={<Staff />} />   
+      <Route path="/staff" element={<Staff />} /> 
+      <Route path="/support" element={<Support />} /> 
+      <Route path="/order-details/:id" element={<OrderDetail />} /> 
       </Routes>
   )
 }

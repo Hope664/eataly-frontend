@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './Orders.css'
 
-const navigate = useNavigate()
 
 const orders = [
   { id: 1, invoice: 'INV-5012', customer: 'Olivia Rhye',    avatar: 'OR', order: 'Berry Smoothie x2',  table: 'A1', tableColor: 'green',  payment: 'Card',         status: 'Paid'      },
@@ -14,6 +13,7 @@ const orders = [
 ]
 
 const Orders = () => {
+  const navigate = useNavigate()
   const [search, setSearch] = useState('')
 
   const filtered = orders.filter(o =>
@@ -115,7 +115,7 @@ const Orders = () => {
             </thead>
             <tbody>
               {filtered.map(o => (
-                <tr key={o.id}>
+                <tr key={o.id} onClick={() => navigate(`/order-detail/${o.id}`)} className="ro-table-row">
                   <td className="ro-invoice">{o.invoice}</td>
                   <td>
                     <div className="ro-customer">
