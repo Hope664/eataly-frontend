@@ -18,6 +18,7 @@ import Notifications from "./pages/restaurant/Notifications/Notifications";
 import RestaurantOrders from "./pages/restaurant/Orders/Orders";
 import Reservations from "./pages/restaurant/Reservations/Reservations";
 import Analytics from "./pages/restaurant/Analytics/Analytics";
+import Support from "./pages/restaurant/Support/Support";
 
 
 const PublicRoute = ({ children }) => {
