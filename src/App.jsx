@@ -39,7 +39,7 @@ function AppRoutes() {
       <Route path="/explore"  element={<Explore/>} />
       <Route path="/Profile" element={<Profile />}/>
       <Route path="/edit-profile" element={<EditProfile/>} />
-      <Route path="/orders" element={<OrderTracking />} />
+      <Route path="/order" element={<OrderTracking />} />
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/reservation" element={<Reservation />} />
       <Route path="/onboarding" element={<Onboarding />} />
