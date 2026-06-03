@@ -19,6 +19,7 @@ import RestaurantOrders from "./pages/restaurant/Orders/Orders";
 import Reservations from "./pages/restaurant/Reservations/Reservations";
 import Analytics from "./pages/restaurant/Analytics/Analytics";
 import Support from "./pages/restaurant/Support/Support";
+import Staff from "./pages/restaurant/Staff/Staff";
 
 
 const PublicRoute = ({ children }) => {
