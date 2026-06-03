@@ -1,0 +1,363 @@
+/* Header */
+.staff-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.staff-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #2A7A4B;
+  margin-bottom: 4px;
+}
+
+.staff-subtitle {
+  font-size: 0.85rem;
+  color: #6B7280;
+}
+
+.staff-add-btn {
+  background: #2A7A4B;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.staff-add-btn:hover {
+  background: #1E5C38;
+}
+
+/* Stats */
+.staff-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.staff-stat-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.staff-stat-card__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.staff-stat-card__value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1A1A1A;
+  margin-bottom: 2px;
+}
+
+.staff-stat-card__label {
+  font-size: 0.75rem;
+  color: #9CA3AF;
+  font-weight: 500;
+}
+
+/* Shifts row */
+.staff-shifts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.staff-shift-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.staff-shift-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.staff-shift-card__header h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1A1A1A;
+  margin-bottom: 4px;
+}
+
+.staff-shift-card__header p {
+  font-size: 0.78rem;
+  color: #9CA3AF;
+}
+
+.staff-shift-card__count {
+  background: #F0FDF4;
+  color: #2A7A4B;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.staff-shift-progress {
+  height: 8px;
+  background: #F3F4F6;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.staff-shift-progress__bar {
+  height: 100%;
+  background: #2A7A4B;
+  border-radius: 20px;
+}
+
+.staff-shift-progress__label {
+  font-size: 0.72rem;
+  color: #2A7A4B;
+  font-weight: 600;
+}
+
+/* Table header */
+.staff-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.staff-tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.staff-tab {
+  padding: 7px 16px;
+  border-radius: 20px;
+  border: 1.5px solid #E5E7EB;
+  background: #fff;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #6B7280;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.staff-tab:hover {
+  border-color: #2A7A4B;
+  color: #2A7A4B;
+}
+
+.staff-tab--active {
+  background: #2A7A4B;
+  color: #fff;
+  border-color: #2A7A4B;
+}
+
+.staff-export-btn {
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1.5px solid #E5E7EB;
+  background: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.staff-export-btn:hover {
+  border-color: #2A7A4B;
+  color: #2A7A4B;
+}
+
+/* Staff member cell */
+.staff-member {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.staff-member__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #F0FDF4;
+  color: #2A7A4B;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.staff-member__name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin-bottom: 2px;
+}
+
+.staff-member__email {
+  font-size: 0.72rem;
+  color: #9CA3AF;
+}
+
+.staff-role {
+  font-size: 0.82rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+.staff-phone {
+  font-size: 0.78rem;
+  color: #6B7280;
+}
+
+/* Shift badge */
+.staff-shift {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.staff-shift--morning {
+  background: #FEF3C7;
+  color: #D97706;
+}
+
+.staff-shift--evening {
+  background: #EDE9FE;
+  color: #7C3AED;
+}
+
+/* Status badge */
+.staff-status {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.staff-status--on-duty {
+  background: #F0FDF4;
+  color: #2A7A4B;
+}
+
+.staff-status--off-duty {
+  background: #F3F4F6;
+  color: #6B7280;
+}
+
+.staff-status--on-leave {
+  background: #FEF3C7;
+  color: #D97706;
+}
+
+/* Efficiency bar */
+.staff-efficiency {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.staff-efficiency__bar {
+  width: 80px;
+  height: 6px;
+  background: #F3F4F6;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.staff-efficiency__fill {
+  height: 100%;
+  background: #2A7A4B;
+  border-radius: 20px;
+}
+
+/* Add staff modal */
+.staff-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.staff-modal {
+  background: #fff;
+  border-radius: 20px;
+  width: 480px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+
+.staff-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.staff-modal__header h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1A1A1A;
+}
+
+.staff-modal__close {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #9CA3AF;
+  padding: 4px;
+}
+
+.staff-modal__close:hover {
+  color: #1A1A1A;
+}
+
+.staff-modal__body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.staff-modal__footer {
+  padding: 16px 24px;
+  border-top: 1px solid #F3F4F6;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
