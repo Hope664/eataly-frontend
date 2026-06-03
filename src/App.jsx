@@ -49,7 +49,8 @@ function AppRoutes() {
       <Route path="/notifications" element={<Notifications />} /> 
       <Route path="/restaurant-orders" element={<RestaurantOrders />} />
       <Route path="/reservations" element={<Reservations />} /> 
-      <Route path="/analytics" element={<Analytics />} />   
+      <Route path="/analytics" element={<Analytics />} />
+      <Route path="/staff" element={<Staff />} />   
       </Routes>
   )
 }
