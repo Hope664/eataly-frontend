@@ -3,8 +3,8 @@ import { AuthProvider, useAuth } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 import Home from "./pages/Home/Home";
-import Login from "./pages/login/login.jsx";
-import Register from "./pages/register/register.jsx";
+import Login from "./pages/login/login";
+import Register from "./pages/register/register";
 import Explore from "./pages/Explore/Explore";
 import Profile from "./pages/Profile/Profile";
 import EditProfile from "./pages/EditProfile/EditProfile";
