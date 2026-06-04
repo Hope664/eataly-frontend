@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+
 import Home from "./pages/Home/Home";
 import Login from "./pages/login/login.jsx";
 import Register from "./pages/register/register.jsx";
@@ -9,6 +11,7 @@ import EditProfile from "./pages/EditProfile/EditProfile";
 import OrderTracking from "./pages/OrderTracking/OrderTracking";
 import Checkout from "./pages/Checkout/Checkout";
 import Reservation from "./pages/Reservation/Reservation";
+import Bookings from "./pages/Bookings/Bookings";
 import Onboarding from "./pages/restaurant/Onboarding/Onboarding";
 import Dashboard from "./pages/restaurant/Dashboard/Dashboard";
 import Menu from "./pages/restaurant/Menu/Menu";
@@ -21,9 +24,8 @@ import Analytics from "./pages/restaurant/Analytics/Analytics";
 import Support from "./pages/restaurant/Support/Support";
 import Staff from "./pages/restaurant/Staff/Staff";
 import OrderDetail from "./pages/restaurant/OrderDetail/OrderDetail";
-import Bookings from "./pages/Bookings/Bookings";
 
-
+// Redirect logged-in users away from login/register
 const PublicRoute = ({ children }) => {
   const { user, loading } = useAuth()
   if (loading) return null
@@ -33,29 +35,59 @@ const PublicRoute = ({ children }) => {
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/"        element={<Navigate to="/home" replace />} />
-      <Route path="/home"    element={<Home />} />
-      <Route path="/login"   element={<PublicRoute><Login /></PublicRoute>} />
+      {/* ── Public ───────────────────────────────────── */}
+      <Route path="/"         element={<Navigate to="/home" replace />} />
+      <Route path="/home"     element={<Home />} />
+      <Route path="/explore"  element={<Explore />} />
+      <Route path="/login"    element={<PublicRoute><Login /></PublicRoute>} />
       <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
-      <Route path="/explore"  element={<Explore/>} />
-      <Route path="/Profile" element={<Profile />}/>
-      <Route path="/edit-profile" element={<EditProfile/>} />
-      <Route path="/order" element={<OrderTracking />} />
-      <Route path="/checkout" element={<Checkout />} />
-      <Route path="/reservation" element={<Reservation />} />
-      <Route path="/onboarding" element={<Onboarding />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/menu" element={<Menu />} />
-      <Route path="/add-dish" element={<AddDish />} /> 
-      <Route path="/settings" element={<Settings />} />  
-      <Route path="/notifications" element={<Notifications />} /> 
-      <Route path="/restaurant-orders" element={<RestaurantOrders />} />
-      <Route path="/reservations" element={<Reservations />} /> 
-      <Route path="/analytics" element={<Analytics />} />
-      <Route path="/staff" element={<Staff />} /> 
-      <Route path="/support" element={<Support />} /> 
-      <Route path="/order-details/:id" element={<OrderDetail />} /> \
-      <Route path="/bookings" element={<Bookings />} />      </Routes>
+
+      {/* ── Customer (any logged-in user) ────────────── */}
+      <Route path="/profile"      element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+      <Route path="/edit-profile" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
+      <Route path="/order"        element={<ProtectedRoute><OrderTracking /></ProtectedRoute>} />
+      <Route path="/checkout"     element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+      <Route path="/reservation"  element={<ProtectedRoute><Reservation /></ProtectedRoute>} />
+      <Route path="/bookings"     element={<ProtectedRoute><Bookings /></ProtectedRoute>} />
+
+      {/* ── Restaurant Owner only ─────────────────────── */}
+      <Route path="/onboarding" element={
+        <ProtectedRoute role="restaurant_owner"><Onboarding /></ProtectedRoute>
+      }/>
+      <Route path="/dashboard" element={
+        <ProtectedRoute role="restaurant_owner"><Dashboard /></ProtectedRoute>
+      }/>
+      <Route path="/menu" element={
+        <ProtectedRoute role="restaurant_owner"><Menu /></ProtectedRoute>
+      }/>
+      <Route path="/add-dish" element={
+        <ProtectedRoute role="restaurant_owner"><AddDish /></ProtectedRoute>
+      }/>
+      <Route path="/settings" element={
+        <ProtectedRoute role="restaurant_owner"><Settings /></ProtectedRoute>
+      }/>
+      <Route path="/notifications" element={
+        <ProtectedRoute role="restaurant_owner"><Notifications /></ProtectedRoute>
+      }/>
+      <Route path="/restaurant-orders" element={
+        <ProtectedRoute role="restaurant_owner"><RestaurantOrders /></ProtectedRoute>
+      }/>
+      <Route path="/reservations" element={
+        <ProtectedRoute role="restaurant_owner"><Reservations /></ProtectedRoute>
+      }/>
+      <Route path="/analytics" element={
+        <ProtectedRoute role="restaurant_owner"><Analytics /></ProtectedRoute>
+      }/>
+      <Route path="/staff" element={
+        <ProtectedRoute role="restaurant_owner"><Staff /></ProtectedRoute>
+      }/>
+      <Route path="/support" element={
+        <ProtectedRoute role="restaurant_owner"><Support /></ProtectedRoute>
+      }/>
+      <Route path="/order-details/:id" element={
+        <ProtectedRoute role="restaurant_owner"><OrderDetail /></ProtectedRoute>
+      }/>
+    </Routes>
   )
 }
 
