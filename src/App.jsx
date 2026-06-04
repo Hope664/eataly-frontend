@@ -21,7 +21,7 @@ import Analytics from "./pages/restaurant/Analytics/Analytics";
 import Support from "./pages/restaurant/Support/Support";
 import Staff from "./pages/restaurant/Staff/Staff";
 import OrderDetail from "./pages/restaurant/OrderDetail/OrderDetail";
-import Booking from "./pages/Bookings/Bookings";
+import Bookings from "./pages/Bookings/Bookings";
 
 
 const PublicRoute = ({ children }) => {
