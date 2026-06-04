@@ -77,7 +77,7 @@ const Dashboard = () => {
           <Link to="/menu"         className="dash-nav-item">
             <span>🍽️</span> Menu
           </Link>
-          <Link to="/orders"       className="dash-nav-item">
+          <Link to="/restaurant-orders"       className="dash-nav-item">
             <span>📦</span> Orders
           </Link>
           <Link to="/analytics"    className="dash-nav-item">

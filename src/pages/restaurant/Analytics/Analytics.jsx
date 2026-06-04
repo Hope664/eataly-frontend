@@ -61,7 +61,7 @@ const Analytics = () => {
           <Link to="/dashboard"    className="dash-nav-item"><span>▦</span> Dashboard</Link>
           <Link to="/reservations" className="dash-nav-item"><span>📅</span> Reservations</Link>
           <Link to="/menu"         className="dash-nav-item"><span>🍽️</span> Menu</Link>
-          <Link to="/orders"       className="dash-nav-item"><span>📦</span> Orders</Link>
+          <Link to="/restaurant-orders"       className="dash-nav-item"><span>📦</span> Orders</Link>
           <Link to="/analytics"    className="dash-nav-item dash-nav-item--active"><span>📊</span> Analytics</Link>
           <Link to="/staff"        className="dash-nav-item"><span>👥</span> Staff</Link>
         </nav>

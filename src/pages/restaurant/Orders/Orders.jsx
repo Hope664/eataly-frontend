@@ -34,17 +34,20 @@ const Orders = () => {
           <Link to="/dashboard"          className="ro-nav-item">
             <span>▦</span> Overview
           </Link>
-          <Link to="/clients"            className="ro-nav-item">
-            <span>👤</span> Clients
+          <Link to="/reservations"            className="ro-nav-item">
+            <span>👤</span> Reservation
           </Link>
-          <Link to="/users"              className="ro-nav-item">
-            <span>👥</span> Users
+          <Link to="/menu"              className="ro-nav-item">
+            <span>👥</span> Menu
           </Link>
-          <Link to="/menu"               className="ro-nav-item">
-            <span>🍽️</span> Menu
+          <Link to="/restaurant-orders"               className="ro-nav-item">
+            <span>🍽️</span> Orders
           </Link>
-          <Link to="/restaurant-orders"  className="ro-nav-item ro-nav-item--active">
-            <span>📋</span> Orders
+          <Link to="/analytics"  className="ro-nav-item ro-nav-item--active">
+            <span>📋</span> Analytics
+          </Link>
+          <Link to="/staff"  className="ro-nav-item ro-nav-item--active">
+            <span>📋</span> Staff
           </Link>
         </nav>
 
