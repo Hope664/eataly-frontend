@@ -53,7 +53,7 @@ const Orders = () => {
 
         <div className="ro-sidebar__bottom">
           <Link to="/settings"   className="ro-nav-item"><span>⚙️</span> Settings</Link>
-          <Link to="/my-account" className="ro-nav-item"><span>👤</span> My account</Link>
+          <Link to="/support" className="ro-nav-item"><span>👤</span>Support</Link>
           <div className="ro-sidebar__user">
             <div className="ro-sidebar__avatar">JD</div>
             <div>
