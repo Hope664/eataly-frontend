@@ -1,5 +1,5 @@
 import './Footer.css'
-import useFetch from '../../hooks/useFetch'
+import useFetch from '../../pages/useFetch'
 // import { getRestaurants } from '../../services/api'
 
 // const SignatureVenues = () => {
