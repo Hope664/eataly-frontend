@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { restaurantAPI, menuAPI } from '../../services/api'
 import './Onboarding.css'
 
 const categories = ['Dessert', 'Main Course', 'Starter', 'Drinks', 'Salads']
@@ -13,19 +14,27 @@ const Onboarding = () => {
     category: 'Dessert',
     price: '',
     description: '',
-    image: null,
   })
+  const [menuImageFile, setMenuImageFile] = useState(null)
+  const [menuImagePreview, setMenuImagePreview] = useState(null)
   const [menuSaved, setMenuSaved] = useState(false)
   const [menuError, setMenuError] = useState('')
+  const [menuLoading, setMenuLoading] = useState(false)
+  const [savedMenuItems, setSavedMenuItems] = useState([])
 
   // Restaurant info form
   const [restaurant, setRestaurant] = useState({
-    logo: null,
+    name: '',
     phone: '',
     openingHours: '',
     address: '',
+    cuisine: '',
   })
+  const [logoFile, setLogoFile] = useState(null)
+  const [logoPreview, setLogoPreview] = useState(null)
   const [infoError, setInfoError] = useState('')
+  const [infoLoading, setInfoLoading] = useState(false)
+  const [restaurantId, setRestaurantId] = useState(null)
 
   const handleMenuChange = (e) => {
     setMenuItem({ ...menuItem, [e.target.name]: e.target.value })
@@ -34,33 +43,97 @@ const Onboarding = () => {
 
   const handleMenuImageChange = (e) => {
     const file = e.target.files[0]
-    if (file) setMenuItem({ ...menuItem, image: URL.createObjectURL(file) })
+    if (file) {
+      setMenuImageFile(file)
+      setMenuImagePreview(URL.createObjectURL(file))
+    }
   }
 
   const handleLogoChange = (e) => {
     const file = e.target.files[0]
-    if (file) setRestaurant({ ...restaurant, logo: URL.createObjectURL(file) })
+    if (file) {
+      setLogoFile(file)
+      setLogoPreview(URL.createObjectURL(file))
+    }
   }
 
+  // Save menu item to state (will be saved to DB after restaurant is created)
   const handleSaveProduct = () => {
     if (!menuItem.name || !menuItem.price || !menuItem.description) {
       setMenuError('Please fill in all menu item fields')
       return
     }
+    setSavedMenuItems([...savedMenuItems, { ...menuItem, imageFile: menuImageFile }])
     setMenuSaved(true)
     setMenuError('')
+    // Reset form for another item
+    setMenuItem({ name: '', category: 'Dessert', price: '', description: '' })
+    setMenuImageFile(null)
+    setMenuImagePreview(null)
   }
 
-  const handleSaveInfo = () => {
+  const handleSaveInfo = async () => {
     if (!menuSaved) {
       setInfoError('Please save a menu item first')
       return
     }
-    if (!restaurant.phone || !restaurant.address || !restaurant.openingHours) {
+    if (!restaurant.name || !restaurant.phone || !restaurant.address) {
       setInfoError('Please fill in all restaurant information')
       return
     }
-    navigate('/dashboard')
+
+    setInfoLoading(true)
+    setInfoError('')
+
+    try {
+      // Step 1 — Create restaurant
+      const res = await restaurantAPI.create({
+        name: restaurant.name,
+        phone: restaurant.phone,
+        address: {
+          street: restaurant.address,
+          city: restaurant.address,
+          country: 'Rwanda',
+        },
+        cuisine: restaurant.cuisine ? [restaurant.cuisine] : ['General'],
+        openingHours: restaurant.openingHours,
+      })
+
+      const newRestaurantId = res.data.restaurant._id
+      setRestaurantId(newRestaurantId)
+
+      // Step 2 — Upload logo if provided
+      if (logoFile) {
+        try {
+          await restaurantAPI.uploadLogo(newRestaurantId, logoFile)
+        } catch (e) {
+          console.log('Logo upload failed:', e.message)
+        }
+      }
+
+      // Step 3 — Save all menu items
+      for (const item of savedMenuItems) {
+        try {
+          await menuAPI.create({
+            restaurantId: newRestaurantId,
+            name: item.name,
+            category: item.category,
+            price: Number(item.price),
+            description: item.description,
+          })
+        } catch (e) {
+          console.log('Menu item save failed:', e.message)
+        }
+      }
+
+      // Step 4 — Navigate to dashboard
+      navigate('/dashboard')
+
+    } catch (err) {
+      setInfoError(err.response?.data?.message || 'Failed to save restaurant info. Please try again.')
+    } finally {
+      setInfoLoading(false)
+    }
   }
 
   return (
@@ -72,7 +145,6 @@ const Onboarding = () => {
       {/* Left card — Add Menu Item */}
       <div className="onboard-card onboard-card--left">
 
-        {/* Logo */}
         <div className="onboard-logo">
           <span>𝓦</span>
         </div>
@@ -80,7 +152,9 @@ const Onboarding = () => {
         <h2 className="onboard-card__title">Add Menu Item</h2>
 
         {menuSaved && (
-          <div className="onboard-success">✅ Menu item saved!</div>
+          <div className="onboard-success">
+            ✅ {savedMenuItems.length} item(s) saved! Add more or fill restaurant info.
+          </div>
         )}
         {menuError && (
           <div className="onboard-error">⚠️ {menuError}</div>
@@ -88,20 +162,18 @@ const Onboarding = () => {
 
         <div className="onboard-form">
 
-          {/* Menu Item Name */}
           <div className="onboard-group">
             <label>Menu Item Name</label>
             <input
               type="text"
               name="name"
               className="onboard-input"
-              placeholder="Beef"
+              placeholder="e.g. Beef Steak"
               value={menuItem.name}
               onChange={handleMenuChange}
             />
           </div>
 
-          {/* Food Category */}
           <div className="onboard-group">
             <label>Food Category</label>
             <div className="onboard-select-wrap">
@@ -118,20 +190,18 @@ const Onboarding = () => {
             </div>
           </div>
 
-          {/* Set Price */}
           <div className="onboard-group">
             <label>Set Price</label>
             <input
               type="number"
               name="price"
               className="onboard-input"
-              placeholder="5,500 RWF"
+              placeholder="5500"
               value={menuItem.price}
               onChange={handleMenuChange}
             />
           </div>
 
-          {/* Description */}
           <div className="onboard-group">
             <label>Description</label>
             <input
@@ -144,7 +214,6 @@ const Onboarding = () => {
             />
           </div>
 
-          {/* Product Image */}
           <div className="onboard-group">
             <label>Product Image</label>
             <div className="onboard-image-row">
@@ -160,13 +229,14 @@ const Onboarding = () => {
               <button
                 className="onboard-save-btn"
                 onClick={handleSaveProduct}
+                disabled={menuLoading}
               >
                 Save Product
               </button>
             </div>
-            {menuItem.image && (
+            {menuImagePreview && (
               <img
-                src={menuItem.image}
+                src={menuImagePreview}
                 alt="preview"
                 className="onboard-image-preview"
               />
@@ -187,13 +257,25 @@ const Onboarding = () => {
 
         <div className="onboard-form">
 
+          {/* Restaurant Name */}
+          <div className="onboard-group">
+            <label>Restaurant Name</label>
+            <input
+              type="text"
+              className="onboard-input"
+              placeholder="e.g. Eataly Milano"
+              value={restaurant.name}
+              onChange={e => setRestaurant({ ...restaurant, name: e.target.value })}
+            />
+          </div>
+
           {/* Two column row — Logo + Phone */}
           <div className="onboard-row">
             <div className="onboard-group">
               <label>Company Logo</label>
               <label className="onboard-logo-upload">
-                {restaurant.logo
-                  ? <img src={restaurant.logo} alt="logo" className="onboard-logo-preview" />
+                {logoPreview
+                  ? <img src={logoPreview} alt="logo" className="onboard-logo-preview" />
                   : <span>Upload Logo</span>
                 }
                 <input
@@ -242,13 +324,24 @@ const Onboarding = () => {
             </div>
           </div>
 
-          {/* Save Info button */}
+          {/* Cuisine */}
+          <div className="onboard-group">
+            <label>Cuisine Type</label>
+            <input
+              type="text"
+              className="onboard-input"
+              placeholder="e.g. Italian, Rwandan, Chinese"
+              value={restaurant.cuisine}
+              onChange={e => setRestaurant({ ...restaurant, cuisine: e.target.value })}
+            />
+          </div>
+
           <button
             className={`onboard-save-info-btn ${!menuSaved ? 'onboard-save-info-btn--disabled' : ''}`}
             onClick={handleSaveInfo}
-            disabled={!menuSaved}
+            disabled={!menuSaved || infoLoading}
           >
-            Save Info
+            {infoLoading ? 'Saving...' : 'Save Info'}
           </button>
 
           {!menuSaved && (
