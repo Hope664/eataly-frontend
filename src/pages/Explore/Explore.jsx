@@ -1,4 +1,5 @@
 import './Explore.css'
+import { useNavigate } from 'react-router-dom'
 import RestaurantCard from '../../components/RestaurantCard/RestaurantCard'
 
 const restaurants = [
@@ -12,9 +13,9 @@ const restaurants = [
 const cuisines = ["All Cuisines", "Fine Dining", "Quick Bites", "Rooftops", "More Items"]
 
 const Explore = () => {
+  const navigate = useNavigate()
   return (
     <div className="explore">
-
       {/* Navbar */}
       <nav className="explore-nav">
         <div className="explore-nav__logo">Eataly</div>
@@ -64,7 +65,9 @@ const Explore = () => {
         {/* Restaurant grid */}
         <div className="explore-grid">
           {restaurants.map(r => (
-            <RestaurantCard key={r.id} {...r} />
+            <RestaurantCard key={r.id} {...r} 
+            onClick={() => navigate(`/restaurant/${r.id}`)}
+            />
           ))}
         </div>
 

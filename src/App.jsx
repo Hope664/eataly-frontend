@@ -24,6 +24,7 @@ import Analytics from "./pages/restaurant/Analytics/Analytics";
 import Support from "./pages/restaurant/Support/Support";
 import Staff from "./pages/restaurant/Staff/Staff";
 import OrderDetail from "./pages/restaurant/OrderDetail/OrderDetail";
+import RestaurantDetail from "./pages/restaurant/RestaurantDetail/RestaurantDetail";
 
 // Redirect logged-in users away from login/register
 const PublicRoute = ({ children }) => {
@@ -87,12 +88,14 @@ function AppRoutes() {
       <Route path="/order-details/:id" element={
         <ProtectedRoute role="restaurant_owner"><OrderDetail /></ProtectedRoute>
       }/>
+      <Route path="/restaurant/:id" element={<RestaurantDetail />
+      }
+      />
     </Routes>
   )
 }
 
 function App() {
-  console.log('App: rendering')
   return (
     <BrowserRouter>
       <AuthProvider>

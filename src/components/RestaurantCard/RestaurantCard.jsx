@@ -1,24 +1,19 @@
-// src/components/RestaurantCard/RestaurantCard.jsx
 import './RestaurantCard.css'
 
-const RestaurantCard = ({ image, name, cuisine, rating, distance, description, tags, featured }) => {
+const RestaurantCard = ({ name, cuisine, rating, distance, description, tags, image, featured, onClick }) => {
   return (
-    <div className={`rcard ${featured ? 'rcard--featured' : ''}`}>
-      <div className="rcard__image">
-        <img src={image} alt={name} />
-        {featured && <span className="rcard__badge">⭐ Featured</span>}
-        <span className="rcard__rating">⭐ {rating}</span>
-        <button className="rcard__heart">♡</button>
-      </div>
-      <div className="rcard__body">
-        <p className="rcard__cuisine">{cuisine}</p>
-        <h3 className="rcard__name">{name}</h3>
-        {description && <p className="rcard__desc">{description}</p>}
-        <div className="rcard__footer">
-          {tags.map((tag, i) => (
-            <span key={i} className="rcard__tag">{tag}</span>
-          ))}
-          <span className="rcard__distance">📍 {distance}</span>
+    <div className={`restaurant-card${featured ? ' restaurant-card--featured' : ''}`} onClick={onClick} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && onClick && onClick()}>
+      <div className="restaurant-card__image" style={{ backgroundImage: `url(${image})` }} />
+      <div className="restaurant-card__content">
+        <div className="restaurant-card__top">
+          <h3 className="restaurant-card__name">{name}</h3>
+          <span className="restaurant-card__rating">⭐ {rating}</span>
+        </div>
+        <p className="restaurant-card__cuisine">{cuisine}</p>
+        {description && <p className="restaurant-card__description">{description}</p>}
+        <div className="restaurant-card__footer">
+          <span className="restaurant-card__distance">{distance}</span>
+          {tags?.length > 0 && <span className="restaurant-card__tag">{tags[0]}</span>}
         </div>
       </div>
     </div>

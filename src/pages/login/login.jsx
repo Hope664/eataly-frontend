@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
-import { loginUser } from '../../services/api'
+import { authAPI } from '../../services/api'
 import './login.css'
 
 const Login = () => {
@@ -25,15 +25,17 @@ const Login = () => {
     }
     setLoading(true)
     try {
-      const res = await loginUser({ email: form.email, password: form.password })
+      const res = await authAPI.login({
+        email: form.email,
+        password: form.password
+      })
       const { user, accessToken, refreshToken } = res.data
-      if (user.role !== 'restaurant_owner') {
-        setError('This portal is for restaurant owners only')
-        setLoading(false)
-        return
-      }
       login(user, accessToken, refreshToken)
-      navigate('/dashboard')
+      if (user.role === 'restaurant_owner') {
+        navigate('/dashboard')
+      } else {
+        navigate('/home')
+      }
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed. Please try again.')
     } finally {
@@ -43,7 +45,6 @@ const Login = () => {
 
   return (
     <div className="auth-page">
-
       {/* LEFT — splash panel */}
       <div className="auth-splash">
         <div className="auth-splash__overlay" />
@@ -62,7 +63,6 @@ const Login = () => {
       {/* RIGHT — login card */}
       <div className="auth-side">
         <div className="auth-card">
-
           <div className="auth-card__logo">🍽️</div>
           <h2 className="auth-card__title">Welcome back</h2>
           <p className="auth-card__subtitle">Sign in your account</p>
@@ -78,7 +78,6 @@ const Login = () => {
               value={form.email}
               onChange={handleChange}
             />
-
             <div className="auth-input-wrap">
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -88,11 +87,13 @@ const Login = () => {
                 value={form.password}
                 onChange={handleChange}
               />
-              <span className="auth-eye" onClick={() => setShowPassword(!showPassword)}>
+              <span
+                className="auth-eye"
+                onClick={() => setShowPassword(!showPassword)}
+              >
                 {showPassword ? '🙈' : '👁️'}
               </span>
             </div>
-
             <button type="submit" className="auth-btn" disabled={loading}>
               {loading ? 'Signing in...' : 'Login'}
             </button>
@@ -102,10 +103,8 @@ const Login = () => {
             Don't have an account?{' '}
             <Link to="/register" className="auth-link">Sign up</Link>
           </p>
-
         </div>
       </div>
-
     </div>
   )
 }

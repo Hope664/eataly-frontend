@@ -2,7 +2,7 @@
 import Navbar from '../../components/Navbar/Navbar'
 import Hero from '../../components/Hero/Hero'
 import SignatureVenues from '../../components/SignatureVenues/SignatureVenues'
-import OurStory from '../../components/OurStory/OurStory'
+import OurStory from '../../components/RestaurantCard/OurStory/OurStory'
 import TrendingNow from '../../components/TrendingNow/TrendingNow'
 import Footer from '../../components/Footer/Footer'
 

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
-import { registerUser } from '../../services/api'
+import { authAPI } from '../../services/api'
 import '../login/login.css'
 import './register.css'
 
@@ -9,10 +9,13 @@ const Register = () => {
   const navigate = useNavigate()
   const { login } = useAuth()
   const [form, setForm] = useState({
-    firstName: '', secondName: '',
-    email: '', password: '', confirm: '',
+    firstName: '',
+    secondName: '',
+    email: '',
+    password: '',
+    confirm: '',
   })
-  const [error, setError] = useState('')
+  const [error,   setError]   = useState('')
   const [loading, setLoading] = useState(false)
 
   const handleChange = (e) => {
@@ -36,17 +39,17 @@ const Register = () => {
     }
     setLoading(true)
     try {
-      const res = await registerUser({
-        name: `${form.firstName} ${form.secondName}`,
-        email: form.email,
+      const res = await authAPI.register({
+        name:     `${form.firstName} ${form.secondName}`,
+        email:    form.email,
         password: form.password,
-        role: 'restaurant_owner',
+        role:     'restaurant_owner',
       })
       const { user, accessToken, refreshToken } = res.data
       login(user, accessToken, refreshToken)
       navigate('/dashboard')
     } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed.')
+      setError(err.response?.data?.message || 'Registration failed. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -54,7 +57,6 @@ const Register = () => {
 
   return (
     <div className="auth-page">
-
       {/* LEFT — same splash panel */}
       <div className="auth-splash">
         <div className="auth-splash__overlay" />
@@ -73,7 +75,6 @@ const Register = () => {
       {/* RIGHT — register card */}
       <div className="auth-side">
         <div className="auth-card">
-
           <div className="auth-card__logo">🍽️</div>
           <h2 className="auth-card__title">Create account</h2>
           <p className="auth-card__subtitle">Register your restaurant on Eataly</p>
@@ -136,10 +137,8 @@ const Register = () => {
             Already have an account?{' '}
             <Link to="/login" className="auth-link">Login</Link>
           </p>
-
         </div>
       </div>
-
     </div>
   )
 }

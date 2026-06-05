@@ -68,6 +68,9 @@ export const authAPI = {
   changePassword: (data)    => api.put('/api/auth/change-password', data),
 }
 
+export const loginUser = (data) => authAPI.login(data)
+export const registerUser = (data) => authAPI.register(data)
+
 // ── Restaurants ─────────────────────────────────────────
 export const restaurantAPI = {
   getAll:       (params)    => api.get('/api/restaurants', { params }),
