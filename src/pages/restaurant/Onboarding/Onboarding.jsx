@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { restaurantAPI, menuAPI } from '../../services/api'
+import { restaurantAPI, menuAPI } from '../../../services/api'
 import './Onboarding.css'
 
 const categories = ['Dessert', 'Main Course', 'Starter', 'Drinks', 'Salads']
