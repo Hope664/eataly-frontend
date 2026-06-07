@@ -111,22 +111,46 @@ const Onboarding = () => {
         }
       }
 
-      // Step 3 — Save all menu items
+      // Step 3 — Create empty menu
+      const menuRes = await menuAPI.createMenu(newRestaurantId)
+
+      // Step 4 — Add categories and items
+      const categoryMap = {}
+      let currentMenu = menuRes.data.menu
+
       for (const item of savedMenuItems) {
-        try {
-          await menuAPI.create({
-            restaurantId: newRestaurantId,
-            name: item.name,
-            category: item.category,
-            price: Number(item.price),
-            description: item.description,
-          })
-        } catch (e) {
-          console.log('Menu item save failed:', e.message)
+        if (!categoryMap[item.category]) {
+          const catRes = await menuAPI.addCategory(newRestaurantId, { name: item.category })
+          currentMenu = catRes.data.menu
+          const newCat = currentMenu.categories.find(c => c.name === item.category)
+          if (newCat) {
+            categoryMap[item.category] = newCat._id
+          } else {
+            throw new Error('Failed to create category')
+          }
+        }
+
+        const categoryId = categoryMap[item.category]
+
+        const itemRes = await menuAPI.addItem(newRestaurantId, categoryId, {
+          name: item.name,
+          description: item.description,
+          price: Number(item.price),
+        })
+
+        const updatedMenu = itemRes.data.menu
+        const cat = updatedMenu.categories.id(categoryId)
+        const newItem = cat?.items?.[cat.items.length - 1]
+
+        if (item.imageFile && newItem) {
+          try {
+            await menuAPI.uploadItemImage(newRestaurantId, categoryId, newItem._id, item.imageFile)
+          } catch (e) {
+            console.log('Item image upload failed:', e.message)
+          }
         }
       }
 
-      // Step 4 — Navigate to dashboard
       navigate('/dashboard')
 
     } catch (err) {

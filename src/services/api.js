@@ -99,10 +99,24 @@ export const restaurantAPI = {
 export const menuAPI = {
   getByRestaurant: (restaurantId, params) =>
     api.get(`/api/menu/${restaurantId}`, { params }),
-  getOne:   (id)        => api.get(`/api/menu/item/${id}`),
-  create:   (data)      => api.post('/api/menu', data),
-  update:   (id, data)  => api.put(`/api/menu/${id}`, data),
-  delete:   (id)        => api.delete(`/api/menu/${id}`),
+  getOne:       (id)         => api.get(`/api/menu/item/${id}`),
+  createMenu:   (restaurantId) =>
+    api.post(`/api/menu/${restaurantId}`),
+  addCategory:  (restaurantId, data) =>
+    api.post(`/api/menu/${restaurantId}/categories`, data),
+  addItem:      (restaurantId, categoryId, data) =>
+    api.post(`/api/menu/${restaurantId}/categories/${categoryId}/items`, data),
+  updateItem:   (restaurantId, categoryId, itemId, data) =>
+    api.put(`/api/menu/${restaurantId}/categories/${categoryId}/items/${itemId}`, data),
+  deleteItem:   (restaurantId, categoryId, itemId) =>
+    api.delete(`/api/menu/${restaurantId}/categories/${categoryId}/items/${itemId}`),
+  uploadItemImage: (restaurantId, categoryId, itemId, file) => {
+    const form = new FormData()
+    form.append('image', file)
+    return api.post(`/api/menu/${restaurantId}/categories/${categoryId}/items/${itemId}/image`, form, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+  },
 }
 
 // ── Orders ──────────────────────────────────────────────
