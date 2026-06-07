@@ -121,20 +121,30 @@ export const menuAPI = {
 
 // ── Orders ──────────────────────────────────────────────
 export const orderAPI = {
-  getAll:     (params)      => api.get('/api/orders', { params }),
-  getOne:     (id)          => api.get(`/api/orders/${id}`),
-  create:     (data)        => api.post('/api/orders', data),
-  update:     (id, data)    => api.put(`/api/orders/${id}`, data),
+  getMyOrders:     ()             => api.get('/api/orders/my-orders'),
+  getRestaurantOrders: (restaurantId, params) =>
+    api.get(`/api/orders/restaurant/${restaurantId}`, { params }),
+  getOne:     (id)        => api.get(`/api/orders/${id}`),
+  create:     (restaurantId, data) =>
+    api.post(`/api/orders/${restaurantId}`, data),
+  update:     (id, data)  => api.put(`/api/orders/${id}`, data),
   updateStatus: (id, status) => api.patch(`/api/orders/${id}/status`, { status }),
 }
 
 // ── Bookings ────────────────────────────────────────────
 export const bookingAPI = {
-  getAll:   (params)        => api.get('/api/bookings', { params }),
-  getOne:   (id)            => api.get(`/api/bookings/${id}`),
-  create:   (data)          => api.post('/api/bookings', data),
-  update:   (id, data)      => api.put(`/api/bookings/${id}`, data),
-  cancel:   (id)            => api.patch(`/api/bookings/${id}/cancel`),
+  getMyBookings: () =>
+    api.get('/api/bookings/my-bookings'),
+  getRestaurantBookings: (restaurantId, params) =>
+    api.get(`/api/bookings/restaurant/${restaurantId}`, { params }),
+  checkAvailability: (restaurantId, params) =>
+    api.get(`/api/bookings/availability/${restaurantId}`, { params }),
+  create:   (restaurantId, data) =>
+    api.post(`/api/bookings/${restaurantId}`, data),
+  updateStatus: (bookingId, data) =>
+    api.put(`/api/bookings/${bookingId}/status`, data),
+  cancel:   (bookingId) =>
+    api.put(`/api/bookings/${bookingId}/cancel`),
 }
 
 export default api

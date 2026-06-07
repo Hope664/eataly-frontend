@@ -42,13 +42,13 @@ const Dashboard = () => {
         setRestaurant(rest)
 
         // 2. Fetch recent orders for this restaurant
-        const ordersRes = await orderAPI.getAll({ restaurantId: rest._id, limit: 5 })
+        const ordersRes = await orderAPI.getRestaurantOrders(rest._id, { limit: 5 })
         const fetchedOrders = ordersRes.data.orders || ordersRes.data || []
         setOrders(fetchedOrders)
 
         // 3. Fetch today's bookings for stats
         const today = new Date().toISOString().split('T')[0]
-        const bookingsRes = await bookingAPI.getAll({ restaurantId: rest._id, date: today })
+        const bookingsRes = await bookingAPI.getRestaurantBookings(rest._id, { date: today })
         const bookings = bookingsRes.data.bookings || bookingsRes.data || []
 
         // 4. Build stats from real data
