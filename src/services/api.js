@@ -133,17 +133,15 @@ export const orderAPI = {
 
 // ── Bookings ────────────────────────────────────────────
 export const bookingAPI = {
-  getMyBookings: () =>
-    api.get('/api/bookings/my-bookings'),
+  getMyBookings:     ()             => api.get('/api/bookings/my-bookings'),
   getRestaurantBookings: (restaurantId, params) =>
     api.get(`/api/bookings/restaurant/${restaurantId}`, { params }),
-  checkAvailability: (restaurantId, params) =>
-    api.get(`/api/bookings/availability/${restaurantId}`, { params }),
-  create:   (restaurantId, data) =>
+  getOne:     (id)        => api.get(`/api/bookings/${id}`),
+  create:     (restaurantId, data) =>
     api.post(`/api/bookings/${restaurantId}`, data),
-  updateStatus: (bookingId, data) =>
-    api.put(`/api/bookings/${bookingId}/status`, data),
-  cancel:   (bookingId) =>
+  updateStatus: (bookingId, status) =>
+    api.put(`/api/bookings/${bookingId}/status`, { status }),
+  cancel:     (bookingId) =>
     api.put(`/api/bookings/${bookingId}/cancel`),
 }
 

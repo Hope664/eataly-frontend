@@ -1,39 +1,98 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { bookingAPI } from '../../../services/api'
+import { useAuth } from '../../../context/AuthContext'
 import '../../../pages/restaurant/Dashboard/Dashboard.css'
 import './Reservations.css'
 
-const reservations = [
-  { id: 1, name: 'Sophia Chen',    avatar: 'SC', memberType: 'VIP Member · 12 visits',  time: '19:30 PM', party: 4, preference: '🌿 Terrace View',  status: 'Confirmed', },
-  { id: 2, name: 'Jameson Blake',  avatar: 'JB', memberType: 'New Guest',                time: '20:15 PM', party: 2, preference: '🍷 Near Cellar',   status: 'Pending',   },
-  { id: 3, name: 'Elena Moretti',  avatar: 'EM', memberType: 'Regular · 4 visits',       time: '18:00 PM', party: 6, preference: '🍽 Main Dining',   status: 'Cancelled', },
-  { id: 4, name: "Liam O'Connor",  avatar: 'LO', memberType: 'Corporate Account',        time: '21:00 PM', party: 8, preference: '🔒 Private Suite', status: 'Confirmed', },
-]
-
-const peakData = [
-  { time: '17:00', value: 45 },
-  { time: '18:00', value: 75 },
-  { time: '19:00', value: 95 },
-  { time: '20:00', value: 80 },
-  { time: '21:00', value: 55 },
-  { time: '22:00', value: 35 },
-]
-
-const tabs = ['All Bookings', 'Pending', 'Confirmed', 'Waitlist']
-
 const Reservations = () => {
-  const [activeTab,    setActiveTab]    = useState('All Bookings')
+  const { user } = useAuth()
+  const [activeTab,    setActiveTab]    = useState('All')
   const [showDecline,  setShowDecline]  = useState(false)
   const [declineReason, setDeclineReason] = useState('')
   const [selected,     setSelected]     = useState(null)
+  const [bookings,     setBookings]     = useState([])
+  const [loading,      setLoading]      = useState(true)
 
-  const filtered = activeTab === 'All Bookings'
-    ? reservations
-    : reservations.filter(r => r.status === activeTab)
+  useEffect(() => {
+    const fetchBookings = async () => {
+      setLoading(true)
+      try {
+        const restaurantId = localStorage.getItem('myRestaurantId') || '1'
+        const res = await bookingAPI.getRestaurantBookings(restaurantId, { date: new Date().toISOString().split('T')[0] })
+        setBookings(res.data.bookings || [])
+      } catch {
+        setBookings([])
+      }
+      setLoading(false)
+    }
+    fetchBookings()
+  }, [])
 
-  const handleDecline = (r) => {
-    setSelected(r)
+  const tabs = ['All Bookings', 'Pending', 'Confirmed', 'Cancelled']
+
+  const mapTabToStatus = (tab) => {
+    if (tab === 'All Bookings') return null
+    return tab.toLowerCase()
+  }
+
+  const filtered = (() => {
+    const statusFilter = mapTabToStatus(activeTab)
+    if (!statusFilter) return bookings
+    return bookings.filter(b => b.status === statusFilter)
+  })()
+
+  const handleAccept = async (booking) => {
+    try {
+      await bookingAPI.updateStatus(booking._id, 'confirmed')
+      setBookings(prev => prev.map(b =>
+        b._id === booking._id ? { ...b, status: 'confirmed' } : b
+      ))
+      if (selected && selected._id === booking._id) setSelected(null)
+    } catch {
+      alert('Could not update status. Please try again.')
+    }
+  }
+
+  const handleDecline = (booking) => {
+    setSelected(booking)
     setShowDecline(true)
+  }
+
+  const confirmDecline = async () => {
+    if (!selected) return
+    try {
+      await bookingAPI.updateStatus(selected._id, 'cancelled')
+      setBookings(prev => prev.map(b =>
+        b._id === selected._id ? { ...b, status: 'cancelled' } : b
+      ))
+      setShowDecline(false)
+      setDeclineReason('')
+      setSelected(null)
+    } catch {
+      alert('Could not decline booking. Please try again.')
+    }
+  }
+
+  const formatDate = (dateStr) => {
+    if (!dateStr) return ''
+    const d = new Date(dateStr)
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+  }
+
+  const formatTime = (timeSlot) => {
+    if (!timeSlot) return ''
+    const [h, m] = timeSlot.split(':').map(Number)
+    const ampm = h >= 12 ? 'PM' : 'AM'
+    const hh = h % 12 || 12
+    return `${hh}:${String(m).padStart(2, '0')} ${ampm}`
+  }
+
+  const stats = {
+    today: bookings.filter(b => b.status === 'pending').length,
+    confirmed: bookings.filter(b => b.status === 'confirmed').length,
+    cancelled: bookings.filter(b => b.status === 'cancelled').length,
+    total: bookings.length,
   }
 
   return (
@@ -74,10 +133,12 @@ const Reservations = () => {
             <span className="dash-nav__icon">⚙️</span>
             <div className="dash-nav__user">
               <div>
-                <p className="dash-nav__user-name">Marco Rossi</p>
+                <p className="dash-nav__user-name">{user?.name || 'Manager'}</p>
                 <p className="dash-nav__user-role">General Manager</p>
               </div>
-              <div className="dash-nav__avatar">MR</div>
+              <div className="dash-nav__avatar">
+                {user?.name?.charAt(0)?.toUpperCase() || 'M'}
+              </div>
             </div>
           </div>
         </nav>
@@ -90,13 +151,13 @@ const Reservations = () => {
             <div>
               <h1 className="resv-title">Reservations</h1>
               <p className="resv-subtitle">
-                Review and manage today's incoming table requests.
+                Review and manage your incoming table requests.
               </p>
             </div>
             <div className="resv-today-badge">
               <div>
-                <p className="resv-today-label">Upcoming Today</p>
-                <p className="resv-today-count">24</p>
+                <p className="resv-today-label">Pending Today</p>
+                <p className="resv-today-count">{stats.today}</p>
               </div>
               <span className="resv-today-icon">📈</span>
             </div>
@@ -115,71 +176,90 @@ const Reservations = () => {
                 </button>
               ))}
             </div>
-            <div className="resv-filter-actions">
-              <button className="resv-filter-btn">≡ More Filters</button>
-              <button className="resv-filter-btn">↓ Export List</button>
-            </div>
           </div>
 
           {/* Table */}
           <div className="resv-table-wrap">
-            <table className="resv-table">
-              <thead>
-                <tr>
-                  <th>CUSTOMER</th>
-                  <th>TIME</th>
-                  <th>PARTY</th>
-                  <th>PREFERENCE</th>
-                  <th>STATUS</th>
-                  <th>ACTIONS</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filtered.map(r => (
-                  <tr key={r.id}>
-                    <td>
-                      <div className="resv-customer">
-                        <div className="resv-avatar">{r.avatar}</div>
-                        <div>
-                          <p className="resv-customer__name">{r.name}</p>
-                          <p className="resv-customer__type">{r.memberType}</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="resv-time">{r.time}</td>
-                    <td className="resv-party">{r.party}</td>
-                    <td className="resv-pref">{r.preference}</td>
-                    <td>
-                      <span className={`resv-status resv-status--${r.status.toLowerCase()}`}>
-                        {r.status}
-                      </span>
-                    </td>
-                    <td>
-                      <div className="resv-actions">
-                        {r.status === 'Pending' && (
-                          <button className="resv-accept-btn">Accept</button>
-                        )}
-                        <button
-                          className="resv-decline-btn"
-                          onClick={() => handleDecline(r)}
-                        >
-                          Decline
-                        </button>
-                      </div>
-                    </td>
+            {loading ? (
+              <p className="resv-loading">Loading reservations...</p>
+            ) : (
+              <table className="resv-table">
+                <thead>
+                  <tr>
+                    <th>CUSTOMER</th>
+                    <th>DATE</th>
+                    <th>TIME</th>
+                    <th>PARTY</th>
+                    <th>STATUS</th>
+                    <th>ACTIONS</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            <div className="resv-pagination">
-              <span className="resv-pagination__info">
-                Showing 1-10 of 48 bookings
-              </span>
-              <div className="resv-pagination__btns">
-                <button className="resv-page-btn">‹</button>
-                <button className="resv-page-btn">›</button>
-              </div>
-            </div>
+                </thead>
+                <tbody>
+                  {filtered.map(b => {
+                    const customer = b.customer || {}
+                    const statusLabel = b.status === 'pending' ? 'Pending' :
+                                       b.status === 'confirmed' ? 'Confirmed' :
+                                       b.status === 'cancelled' ? 'Cancelled' :
+                                       b.status === 'completed' ? 'Completed' :
+                                       b.status.charAt(0).toUpperCase() + b.status.slice(1)
+
+                    return (
+                      <tr key={b._id}>
+                        <td>
+                          <div className="resv-customer">
+                            <div className="resv-avatar">
+                              {customer.name?.charAt(0)?.toUpperCase() || '?'}
+                            </div>
+                            <div>
+                              <p className="resv-customer__name">
+                                {customer.name || 'Anonymous'}
+                              </p>
+                              <p className="resv-customer__type">
+                                {customer.email || 'No email'}
+                              </p>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="resv-date">{formatDate(b.date)}</td>
+                        <td className="resv-time">{formatTime(b.timeSlot)}</td>
+                        <td className="resv-party">{b.guestCount}</td>
+                        <td>
+                          <span className={`resv-status resv-status--${b.status}`}>
+                            {statusLabel}
+                          </span>
+                        </td>
+                        <td>
+                          <div className="resv-actions">
+                            {b.status === 'pending' && (
+                              <button
+                                className="resv-accept-btn"
+                                onClick={() => handleAccept(b)}
+                              >
+                                Accept
+                              </button>
+                            )}
+                            <button
+                              className="resv-decline-btn"
+                              onClick={() => handleDecline(b)}
+                              disabled={b.status === 'cancelled'}
+                            >
+                              Decline
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  })}
+                  {filtered.length === 0 && (
+                    <tr>
+                      <td colSpan="6" className="resv-empty">
+                        No reservations found for this filter.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            )}
           </div>
 
           {/* Bottom row */}
@@ -204,7 +284,11 @@ const Reservations = () => {
                 <a href="#" className="resv-view-all">View full report</a>
               </div>
               <div className="resv-peak-chart">
-                {peakData.map((d, i) => (
+                {[
+                  { time: '17:00', value: 45 }, { time: '18:00', value: 75 },
+                  { time: '19:00', value: 95 }, { time: '20:00', value: 80 },
+                  { time: '21:00', value: 55 }, { time: '22:00', value: 35 },
+                ].map((d, i) => (
                   <div key={i} className="resv-peak-bar-wrap">
                     <div
                       className="resv-peak-bar"
@@ -223,16 +307,8 @@ const Reservations = () => {
 
       {/* Decline modal */}
       {showDecline && selected && (
-        <div className="resv-modal-overlay" onClick={() => setShowDecline(false)}>
+        <div className="resv-modal-overlay" onClick={() => { setShowDecline(false); setDeclineReason(''); setSelected(null); }}>
           <div className="resv-modal" onClick={e => e.stopPropagation()}>
-
-            {/* Modal restaurant image */}
-            <div className="resv-modal__image">
-              <img
-                src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400"
-                alt="restaurant"
-              />
-            </div>
 
             <div className="resv-modal__body">
               <h2 className="resv-modal__title">Decline Reservation</h2>
@@ -240,23 +316,27 @@ const Reservations = () => {
               <div className="resv-modal__info">
                 <div>
                   <p className="resv-modal__label">Customer</p>
-                  <p className="resv-modal__value">{selected.name}</p>
+                  <p className="resv-modal__value">
+                    {selected.customer?.name || 'Anonymous'}
+                  </p>
                 </div>
               </div>
 
               <div className="resv-modal__row">
                 <div>
-                  <p className="resv-modal__label">Reserved Table</p>
-                  <p className="resv-modal__value">Table A1</p>
+                  <p className="resv-modal__label">Table</p>
+                  <p className="resv-modal__value">Table {String(selected.tableNumber).padStart(2, '0')}</p>
                 </div>
                 <div>
                   <p className="resv-modal__label">Reservation Time</p>
-                  <p className="resv-modal__value">{selected.time}</p>
+                  <p className="resv-modal__value">
+                    {formatDate(selected.date)} at {formatTime(selected.timeSlot)}
+                  </p>
                 </div>
               </div>
 
               <div className="resv-modal__group">
-                <label className="resv-modal__label">Reason</label>
+                <label className="resv-modal__label">Reason (optional)</label>
                 <textarea
                   className="resv-modal__textarea"
                   placeholder="Table unavailable at selected time..."
@@ -269,13 +349,13 @@ const Reservations = () => {
               <div className="resv-modal__actions">
                 <button
                   className="resv-modal__cancel"
-                  onClick={() => setShowDecline(false)}
+                  onClick={() => { setShowDecline(false); setDeclineReason(''); setSelected(null); }}
                 >
                   Cancel
                 </button>
                 <button
                   className="resv-modal__confirm"
-                  onClick={() => setShowDecline(false)}
+                  onClick={confirmDecline}
                 >
                   Confirm Decline
                 </button>
