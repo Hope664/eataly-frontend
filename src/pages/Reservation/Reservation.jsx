@@ -1,8 +1,14 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { bookingAPI } from '../../services/api'
+import { bookingAPI, restaurantAPI } from '../../services/api'
 import { useAuth } from '../../context/AuthContext'
 import './Reservation.css'
+
+const TIME_SLOTS = [
+  '11:00', '11:30', '12:00', '12:30', '13:00',
+  '17:00', '17:30', '18:00', '18:30', '19:00',
+  '19:30', '20:00', '20:30', '21:00',
+]
 
 const Reservation = () => {
   const { user } = useAuth()
@@ -15,13 +21,33 @@ const Reservation = () => {
   const [selectedTable, setSelectedTable] = useState(null)
   const [takenTables, setTakenTables] = useState([])
   const [guests, setGuests] = useState(2)
+  const [customerPhone, setCustomerPhone] = useState('')
+  const [specialRequests, setSpecialRequests] = useState('')
   const [loading, setLoading] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
+  const [resolvedRestaurantId, setResolvedRestaurantId] = useState('')
 
-  const restaurantId = localStorage.getItem('selectedRestaurantId') || '1'
+  const restaurantId = resolvedRestaurantId || localStorage.getItem('selectedRestaurantId') || '1'
 
-  const calendarDays = useMemo(() => {
+  useEffect(() => {
+    if (restaurantId !== '1') {
+      setResolvedRestaurantId(restaurantId)
+      return
+    }
+    restaurantAPI.getAll()
+      .then(res => {
+        const list = res.data.restaurants || res.data || []
+        if (list.length > 0) {
+          const first = list[0]._id || list[0].id
+          setResolvedRestaurantId(first)
+          localStorage.setItem('selectedRestaurantId', String(first))
+        }
+      })
+      .catch(() => {})
+  }, [])
+
+  const calendarDays = (() => {
     const year = currentMonth.getFullYear()
     const month = currentMonth.getMonth()
     const firstDay = new Date(year, month, 1)
@@ -29,7 +55,6 @@ const Reservation = () => {
     const startPad = firstDay.getDay()
     const daysInMonth = lastDay.getDate()
     const days = []
-
     for (let i = 0; i < startPad; i++) days.push(null)
     for (let d = 1; d <= daysInMonth; d++) {
       const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`
@@ -40,10 +65,10 @@ const Reservation = () => {
       days.push({ day: d, dateStr, isPast, isToday: dateStr === today.toISOString().split('T')[0] })
     }
     return days
-  }, [currentMonth])
+  })()
 
   useEffect(() => {
-    if (!selectedDate || !selectedTime) {
+    if (!selectedDate || !selectedTime || !resolvedRestaurantId) {
       setTakenTables([])
       return
     }
@@ -52,7 +77,7 @@ const Reservation = () => {
       setLoading(true)
       setSelectedTable(null)
       try {
-        const res = await bookingAPI.checkAvailability(restaurantId, { date: selectedDate, timeSlot: selectedTime })
+        const res = await bookingAPI.checkAvailability(resolvedRestaurantId, { date: selectedDate, timeSlot: selectedTime })
         setTakenTables(res.data.tables?.filter(t => !t.isAvailable).map(t => t.tableNumber) || [])
       } catch {
         setTakenTables([])
@@ -61,7 +86,7 @@ const Reservation = () => {
     }
 
     fetchAvailability()
-  }, [selectedDate, selectedTime, restaurantId])
+  }, [selectedDate, selectedTime, resolvedRestaurantId])
 
   const handlePrevMonth = () => {
     setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))
@@ -99,9 +124,10 @@ const Reservation = () => {
         guestCount: guests,
         customerName: user?.name || 'Guest',
         customerEmail: user?.email || '',
-        customerPhone: '',
-        specialRequests: '',
+        customerPhone: customerPhone,
+        specialRequests: specialRequests,
       })
+      localStorage.removeItem('selectedRestaurantId')
       navigate('/bookings')
     } catch (err) {
       setError(err.response?.data?.message || 'Booking failed. Please try again.')
@@ -139,13 +165,12 @@ const Reservation = () => {
 
       <div className="res-container">
 
-        {/* Heading */}
         <h1 className="res-title">Reserve Your<br />Experience</h1>
         {error && <div className="res-error">⚠️ {error}</div>}
 
         <form onSubmit={handleConfirm}>
 
-          {/* Date - toggle calendar */}
+          {/* Date - hidden until clicked */}
           <div className="res-input-group res-date-trigger" onClick={() => setShowCalendar(!showCalendar)}>
             <label>DATE</label>
             <div className="res-input-row">
@@ -162,21 +187,18 @@ const Reservation = () => {
                   <span className="res-calendar__month">{monthLabel}</span>
                   <button type="button" className="res-calendar__arrow" onClick={handleNextMonth}>›</button>
                 </div>
-
                 <div className="res-calendar__weekdays">
                   {weekDays.map(d => <span key={d}>{d}</span>)}
                 </div>
-
                 <div className="res-calendar__grid">
                   {calendarDays.map((day, idx) => {
                     const isSelected = day?.dateStr === selectedDate
-                    const isPast = day?.isPast
                     return (
                       <button
                         key={idx}
                         type="button"
-                        disabled={isPast}
-                        className={`res-calendar__day ${isPast ? 'res-calendar__day--past' : ''} ${isSelected ? 'res-calendar__day--selected' : ''} ${day?.isToday ? 'res-calendar__day--today' : ''}`}
+                        disabled={day?.isPast}
+                        className={`res-calendar__day ${day?.isPast ? 'res-calendar__day--past' : ''} ${isSelected ? 'res-calendar__day--selected' : ''} ${day?.isToday ? 'res-calendar__day--today' : ''}`}
                         onClick={() => handleDayClick(day)}
                       >
                         {day?.day || ''}
@@ -200,7 +222,7 @@ const Reservation = () => {
             </div>
           </div>
 
-          {/* Time - flexible freeform input */}
+          {/* Time - flexible native picker so user can enter any time e.g. 5:45 */}
           <div className="res-input-group">
             <label>TIME</label>
             <div className="res-input-row">
@@ -212,26 +234,31 @@ const Reservation = () => {
                 required
               />
               {selectedTime && (
-                <span className="res-time-display">
-                  {formatTime(selectedTime)}
-                </span>
+                <span className="res-time-display">{formatTime(selectedTime)}</span>
               )}
             </div>
+          </div>
+
+          {/* Phone (required by backend) */}
+          <div className="res-input-group">
+            <label>PHONE NUMBER</label>
+            <input
+              type="tel"
+              value={customerPhone}
+              onChange={e => setCustomerPhone(e.target.value)}
+              className="res-phone-input"
+              placeholder="+39 000 000 0000"
+              required
+            />
           </div>
 
           {/* Table selection */}
           <div className="res-map-card">
             <h3 className="res-section__title">Select Table</h3>
             <div className="res-legend">
-              <span className="res-legend__item">
-                <span className="res-dot res-dot--available" /> Available
-              </span>
-              <span className="res-legend__item">
-                <span className="res-dot res-dot--selected" /> Selected
-              </span>
-              <span className="res-legend__item">
-                <span className="res-dot res-dot--reserved" /> Taken
-              </span>
+              <span className="res-legend__item"><span className="res-dot res-dot--available" /> Available</span>
+              <span className="res-legend__item"><span className="res-dot res-dot--selected" /> Selected</span>
+              <span className="res-legend__item"><span className="res-dot res-dot--reserved" /> Taken</span>
             </div>
 
             {!selectedDate || !selectedTime ? (
@@ -251,11 +278,7 @@ const Reservation = () => {
                     <button
                       key={num}
                       type="button"
-                      className={`table-dot ${
-                        isSelected ? 'table-dot--selected'
-                          : isTaken ? 'table-dot--reserved'
-                          : 'table-dot--available'
-                      }`}
+                      className={`table-dot ${isSelected ? 'table-dot--selected' : isTaken ? 'table-dot--reserved' : 'table-dot--available'}`}
                       style={{ left: `${positions[num - 1].x}%`, top: `${positions[num - 1].y}%` }}
                       disabled={isTaken}
                       onClick={() => !isTaken && setSelectedTable(num)}
@@ -270,7 +293,7 @@ const Reservation = () => {
           </div>
 
           {/* Summary */}
-          {(selectedDate || selectedTime || selectedTable || guests) && (
+          {(selectedDate || selectedTime || selectedTable) && (
             <div className="res-summary">
               <div className="res-summary__row">
                 <span className="res-summary__label">Booking Summary</span>
@@ -290,9 +313,7 @@ const Reservation = () => {
                 </div>
                 <div className="res-summary__item">
                   <span className="res-summary__key">Table</span>
-                  <span className="res-summary__val">
-                    {selectedTable ? `Table ${String(selectedTable).padStart(2, '0')}` : '—'}
-                  </span>
+                  <span className="res-summary__val">{selectedTable ? `Table ${String(selectedTable).padStart(2, '0')}` : '—'}</span>
                 </div>
               </div>
             </div>
@@ -301,7 +322,7 @@ const Reservation = () => {
           <button
             type="submit"
             className="res-confirm-btn"
-            disabled={submitting || loading || !selectedDate || !selectedTime || !selectedTable}
+            disabled={submitting || loading || !resolvedRestaurantId || !selectedDate || !selectedTime || !selectedTable}
           >
             {submitting ? 'Confirming...' : 'Confirm Booking →'}
           </button>

@@ -13,20 +13,30 @@ const Bookings = () => {
   const [selected,    setSelected]    = useState(null)
   const [bookings,    setBookings]    = useState([])
   const [loading,     setLoading]     = useState(true)
+  const [error,       setError]       = useState('')
+  const [debug,       setDebug]       = useState('')
 
   useEffect(() => {
     const fetchBookings = async () => {
       setLoading(true)
+      setError('')
+      setDebug('Fetching...')
       try {
+        const token = localStorage.getItem('accessToken')
+        setDebug('Token present: ' + !!token + ' | Role: ' + (user?.role || 'unknown'))
         const res = await bookingAPI.getMyBookings()
+        setDebug('Response received. Count: ' + (res.data?.bookings?.length || 0))
         setBookings(res.data.bookings || [])
-      } catch {
+      } catch (err) {
+        const msg = err.response?.data?.message || err.message
+        setError(msg)
+        setDebug('Error: ' + msg + ' | Status: ' + (err.response?.status || 'no response'))
         setBookings([])
       }
       setLoading(false)
     }
     fetchBookings()
-  }, [])
+  }, [user])
 
   const filtered = activeTab === 'All'
     ? bookings
@@ -66,10 +76,10 @@ const Bookings = () => {
   }
 
   const stats = {
-    all: bookings.length,
     upcoming: bookings.filter(b => b.status === 'pending' || b.status === 'confirmed').length,
     completed: bookings.filter(b => b.status === 'completed').length,
     cancelled: bookings.filter(b => b.status === 'cancelled').length,
+    total: bookings.length,
   }
 
   return (
@@ -114,8 +124,8 @@ const Bookings = () => {
             <span className="bookings-stat__label">Cancelled</span>
           </div>
           <div className="bookings-stat">
-            <span className="bookings-stat__value">{stats.all}</span>
-            <span className="bookings-stat__label">Total Visits</span>
+            <span className="bookings-stat__value">{stats.total}</span>
+            <span className="bookings-stat__label">Total</span>
           </div>
         </div>
 
@@ -132,13 +142,17 @@ const Bookings = () => {
           ))}
         </div>
 
-        {/* Booking cards */}
+        {/* Debug info */}
+        {debug && <p className="bookings-debug">{debug} | User: {user?.email || 'none'} | Role: {user?.role || 'none'}</p>}
+        {error && <div className="bookings-error">⚠️ {error}</div>}
+
+        {/* Content */}
         {loading ? (
-          <p className="bookings-loading">Loading bookings...</p>
+          <p className="bookings-loading">Loading your bookings...</p>
         ) : filtered.length === 0 ? (
           <div className="bookings-empty">
             <span className="bookings-empty__icon">📅</span>
-            <p>No bookings found</p>
+            <p>No bookings found{error ? `: ${error}` : ''}</p>
             <Link to="/reservation" className="bookings-empty__link">Make your first booking</Link>
           </div>
         ) : (
@@ -152,7 +166,6 @@ const Bookings = () => {
               return (
                 <div key={booking._id} className="booking-card">
 
-                  {/* Restaurant image */}
                   <div className="booking-card__image">
                     <img
                       src={restaurant.coverImage || 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400'}
@@ -163,23 +176,17 @@ const Bookings = () => {
                     </span>
                   </div>
 
-                  {/* Content */}
                   <div className="booking-card__body">
                     <div className="booking-card__top">
                       <div>
-                        <h3 className="booking-card__name">
-                          {restaurant.name || 'Restaurant'}
-                        </h3>
+                        <h3 className="booking-card__name">{restaurant.name || 'Restaurant'}</h3>
                         <p className="booking-card__address">
-                          📍 {restaurant.address || 'Address not available'}
+                          📍 {restaurant.address?.street || restaurant.address || 'Address not available'}
                         </p>
                       </div>
-                      <span className="booking-card__code">
-                        #{booking._id?.slice(-6).toUpperCase()}
-                      </span>
+                      <span className="booking-card__code">#{booking._id?.slice(-6).toUpperCase()}</span>
                     </div>
 
-                    {/* Details grid */}
                     <div className="booking-card__details">
                       <div className="booking-detail">
                         <span className="booking-detail__label">Date</span>
@@ -199,54 +206,33 @@ const Bookings = () => {
                       </div>
                     </div>
 
-                    {/* Actions */}
                     {(booking.status === 'pending' || booking.status === 'confirmed') && (
                       <div className="booking-card__actions">
-                        <Link
-                          to="/reservation"
-                          className="booking-btn booking-btn--modify"
-                        >
+                        <Link to="/reservation" className="booking-btn booking-btn--modify">
                           ✏️ Modify
                         </Link>
-                        <button
-                          className="booking-btn booking-btn--cancel"
-                          onClick={() => handleCancel(booking)}
-                        >
+                        <button className="booking-btn booking-btn--cancel" onClick={() => handleCancel(booking)}>
                           ✕ Cancel
                         </button>
                       </div>
                     )}
                     {booking.status === 'completed' && (
                       <div className="booking-card__actions">
-                        <button className="booking-btn booking-btn--review">
-                          ⭐ Leave Review
-                        </button>
-                        <Link
-                          to="/reservation"
-                          className="booking-btn booking-btn--rebook"
-                        >
-                          🔄 Rebook
-                        </Link>
+                        <button className="booking-btn booking-btn--review">⭐ Leave Review</button>
+                        <Link to="/reservation" className="booking-btn booking-btn--rebook">🔄 Rebook</Link>
                       </div>
                     )}
                     {booking.status === 'cancelled' && (
                       <div className="booking-card__actions">
-                        <Link
-                          to="/reservation"
-                          className="booking-btn booking-btn--rebook"
-                        >
-                          🔄 Book Again
-                        </Link>
+                        <Link to="/reservation" className="booking-btn booking-btn--rebook">🔄 Book Again</Link>
                       </div>
                     )}
                   </div>
-
                 </div>
               )
             })}
           </div>
         )}
-
       </div>
 
       {/* Cancel modal */}
@@ -264,16 +250,10 @@ const Bookings = () => {
               Note: Cancellations made less than 24 hours before the reservation may incur a fee.
             </p>
             <div className="bookings-modal__actions">
-              <button
-                className="booking-btn booking-btn--modify"
-                onClick={() => setShowCancel(false)}
-              >
+              <button className="booking-btn booking-btn--modify" onClick={() => setShowCancel(false)}>
                 Keep Booking
               </button>
-              <button
-                className="booking-btn booking-btn--cancel"
-                onClick={confirmCancel}
-              >
+              <button className="booking-btn booking-btn--cancel" onClick={confirmCancel}>
                 Yes, Cancel
               </button>
             </div>
@@ -288,7 +268,6 @@ const Bookings = () => {
         <Link to="/bookings" className="ot-tab ot-tab--active">📅<span>Bookings</span></Link>
         <Link to="/profile"  className="ot-tab">👤<span>Profile</span></Link>
       </div>
-
     </div>
   )
 }

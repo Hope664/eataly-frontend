@@ -603,6 +603,25 @@
   white-space: nowrap;
 }
 
+.res-phone-input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1.5px solid #E5E7EB;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #1A1A1A;
+  background: #F9FAFB;
+  outline: none;
+  transition: border-color 0.15s ease;
+  box-sizing: border-box;
+}
+
+.res-phone-input:focus {
+  border-color: #2A7A4B;
+  background: #fff;
+}
+
 .res-floor__hint,
 .res-floor__loading {
   text-align: center;
