@@ -132,23 +132,23 @@ const Onboarding = () => {
 
         const categoryId = categoryMap[item.category]
 
-        const itemRes = await menuAPI.addItem(newRestaurantId, categoryId, {
-          name: item.name,
-          description: item.description,
-          price: Number(item.price),
-        })
+         const itemRes = await menuAPI.addItem(newRestaurantId, categoryId, {
+           name: item.name,
+           description: item.description,
+           price: Number(item.price),
+         })
 
-        const updatedMenu = itemRes.data.menu
-        const cat = updatedMenu.categories.id(categoryId)
-        const newItem = cat?.items?.[cat.items.length - 1]
+         const updatedMenu = itemRes.data.menu
+         const cat = updatedMenu.categories.find(c => c._id === categoryId || c.id === categoryId)
+         const newItem = cat?.items?.[cat.items.length - 1]
 
-        if (item.imageFile && newItem) {
-          try {
-            await menuAPI.uploadItemImage(newRestaurantId, categoryId, newItem._id, item.imageFile)
-          } catch (e) {
-            console.log('Item image upload failed:', e.message)
-          }
-        }
+         if (item.imageFile && newItem?._id) {
+           try {
+             await menuAPI.uploadItemImage(newRestaurantId, categoryId, newItem._id, item.imageFile)
+           } catch (e) {
+             console.log('Item image upload failed:', e.message)
+           }
+         }
       }
 
       navigate('/dashboard')
